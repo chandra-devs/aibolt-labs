@@ -3,7 +3,7 @@ const path = Astro.url.pathname;
 const links = [
   ['/projects', 'Projects'],
   ['/experiments', 'Experiments'],
-  ['/blog', 'Blog'],
+  ['/blog', 'Journal'],
   ['/videos', 'Videos'],
   ['/about', 'About'],
 ];
@@ -12,7 +12,7 @@ const links = [
 <header class="site-header" data-dynt-ignore>
   <div class="shell header-inner">
     <a class="brand" href="/" aria-label="AIBolt Labs home">
-      <img src="/brand/aibolt-labs-wordmark.png" alt="AIBolt Labs" width="158" height="79" />
+      <img src="/brand/aibolt-labs-wordmark-light.png" alt="AIBolt Labs" width="600" height="235" />
     </a>
     <nav class="desktop-nav" aria-label="Primary navigation">
       {links.map(([href, label]) => (
@@ -20,44 +20,14 @@ const links = [
       ))}
     </nav>
     <div class="header-actions">
-      <a class="button button-small button-outline header-cta" href="/dynt">Explore DYNT</a>
-      <a class="icon-link" href="https://github.com/aibolt" aria-label="AIBolt on GitHub">GH</a>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
-        <span class="theme-toggle-icon" aria-hidden="true" data-theme-icon>☼</span>
-        <span data-theme-label>Light</span>
-      </button>
+      <a class="header-github" href="https://github.com/aibolt">GitHub <span aria-hidden="true">↗</span></a>
     </div>
     <details class="mobile-nav">
       <summary aria-label="Open navigation">Menu</summary>
       <nav aria-label="Mobile navigation">
         {links.map(([href, label]) => <a href={href}>{label}</a>)}
-        <a href="/dynt">Explore DYNT</a>
+        <a href="https://github.com/aibolt">GitHub ↗</a>
       </nav>
     </details>
   </div>
 </header>
-
-<script>
-  const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-
-  const syncThemeToggle = () => {
-    if (!themeToggle) return;
-    const light = document.documentElement.dataset.theme === 'light';
-    themeToggle.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} mode`);
-    const icon = themeToggle.querySelector<HTMLElement>('[data-theme-icon]');
-    const label = themeToggle.querySelector<HTMLElement>('[data-theme-label]');
-    if (icon) icon.textContent = light ? '◐' : '☼';
-    if (label) label.textContent = light ? 'Dark' : 'Light';
-  };
-
-  syncThemeToggle();
-  themeToggle?.addEventListener('click', () => {
-    const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-    document.querySelector('[data-theme-color]')?.setAttribute('content', theme === 'light' ? '#f6f1e7' : '#050505');
-    localStorage.setItem('aibolt-theme', theme);
-    syncThemeToggle();
-    window.dispatchEvent(new CustomEvent('aibolt:theme', { detail: { theme } }));
-  });
-</script>

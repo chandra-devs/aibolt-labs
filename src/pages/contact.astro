@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contact — AIBolt Labs" description="Contact AIBolt Labs about projects, demonstrations, and collaboration.">
-  <section class="page-hero"><div class="shell"><div class="eyebrow">Contact</div><h1 class="page-title">Start with the work.</h1><p class="lead">For project discussions, implementation questions, or collaboration requests, use the public repositories so context remains attached to the work.</p></div></section>
-  <section class="section"><div class="shell grid-2"><article class="panel panel-body"><div class="eyebrow">Project discussions</div><h2 class="section-title">GitHub</h2><p class="section-copy">Use issues for reproducible problems and discussions for implementation questions.</p><a class="button" href="https://github.com/aibolt/dynt">Open the DYNT repository ↗</a></article><article class="panel panel-body"><div class="eyebrow eyebrow-blue">Demonstrations</div><h2 class="section-title">YouTube</h2><p class="section-copy">Follow the AIBolt Labs channel for upcoming walkthroughs and project releases.</p><a class="button button-outline" href="https://www.youtube.com/@AiBoltLabs">Open the channel ↗</a></article></div></section>
+<BaseLayout title="Contact — AIBolt Labs" description="Project support and public contact paths for AIBolt Labs.">
+  <section class="page-hero"><div class="shell"><div class="eyebrow">Contact</div><h1 class="page-title">Keep the conversation<br />close to the work.</h1><p class="lead">Public project questions are most useful when they remain searchable, reproducible, and attached to the source they concern.</p></div></section>
+  <section class="section"><div class="shell grid-3">
+    <article class="card"><span class="number">BUGS</span><h2>Report an issue</h2><p>Use the DYNT issue tracker for reproducible defects, unexpected browser behaviour, or documentation gaps.</p><a class="card-link" href="https://github.com/aibolt/dynt/issues">Open issues ↗</a></article>
+    <article class="card"><span class="number">SOURCE</span><h2>Propose a change</h2><p>Read the contribution guidance before opening a pull request. Maintainers review changes against the project contracts.</p><a class="card-link" href="https://github.com/aibolt/dynt/blob/main/CONTRIBUTING.md">Contribution guide ↗</a></article>
+    <article class="card"><span class="number">MEDIA</span><h2>Follow demonstrations</h2><p>Project walkthroughs and future release demonstrations are published through the AIBolt Labs channel.</p><a class="card-link" href="https://www.youtube.com/@AiBoltLabs">YouTube channel ↗</a></article>
+  </div></section>
 </BaseLayout>

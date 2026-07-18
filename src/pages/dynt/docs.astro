@@ -161,7 +161,7 @@ const tilt = createKinetic({
   },
   cells: {
     shape: 'hexagon',
-    size: [26, 22, 18],
+    size: [22, 18, 14],
     colorMode: 'gradient',
     colors: ['#143447', '#1686bd', '#8de1ff']
   },
@@ -178,7 +178,7 @@ const tilt = createKinetic({
 });`}</code></pre>
           <div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Geometry</th><th>Visual behavior</th><th>Useful for</th></tr></thead><tbody><tr><td>Square</td><td>Regular rectilinear field with configurable gap</td><td>Structured dashboards and data surfaces</td></tr><tr><td>Hexagon</td><td>Connected staggered honeycomb</td><td>Continuous material-like propagation</td></tr><tr><td>Circle</td><td>Separated radial cells</td><td>Making curved wave fronts easy to read</td></tr><tr><td>Diamond</td><td>Connected interlocked tessellation</td><td>Emphasizing directional movement</td></tr></tbody></table></div>
           <h3>Three-level cell sizing</h3>
-          <p>The size tuple is <code>[section, card, nested]</code>. Nested managed surfaces inherit the next level, capped at level three. The site demonstrations use the finer <code>[26, 22, 18]</code> hierarchy so cells remain precise inside cards.</p>
+          <p>The size tuple is <code>[section, card, nested]</code>. Nested managed surfaces inherit the next level, capped at level three. The site demonstrations use the finer <code>[22, 18, 14]</code> hierarchy so cells remain precise inside cards.</p>
           <pre><code>{`// One target can override the resolved setting.
 element.dataset.dyntCellShape = 'circle';
 element.dataset.dyntCellSize = '18';
@@ -206,7 +206,7 @@ const formation = createFormation({
 const kinetic = createKinetic({
   ...options,
   ...kineticPresets.structural,
-  cells: { size: [26, 22, 18] }
+  cells: { size: [22, 18, 14] }
 });`}</code></pre>
           <p>Destroying either controller leaves the other operational. Shared ownership records prevent duplicate decoration and restore application state only after the final owner releases a target.</p>
         </section>
@@ -243,7 +243,7 @@ export function AppShell() {
     rootRef,
     selector: '[data-dynt-surface]',
     observe: true,
-    cells: { size: [26, 22, 18] }
+    cells: { size: [22, 18, 14] }
   });
 
   return <main ref={rootRef}>{/* existing tree */}</main>;
@@ -297,7 +297,7 @@ formation.destroy();`}</code></pre>
         <section id="troubleshooting">
           <div class="eyebrow">13 · Troubleshooting</div>
           <h2>Check the boundary before tuning the effect.</h2>
-          <div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Symptom</th><th>Check</th></tr></thead><tbody><tr><td>A late-rendered section is not enhanced</td><td>Confirm <code>observe: true</code>, the element is inside <code>root</code>, and it matches <code>selector</code></td></tr><tr><td>A nested card reacts with its parent</td><td>Make the nested card a managed surface; deepest matching ownership receives input</td></tr><tr><td>Cells look too large inside cards</td><td>Use a three-level size such as <code>[26, 22, 18]</code> or a target-local size override</td></tr><tr><td>Tilt is difficult to notice</td><td>Verify <code>effects.tilt</code>, use content response, and test at a temporary demonstration value before selecting a restrained production value</td></tr><tr><td>Wave appears on hover</td><td>Hover should leave the canvas clear; inspect application CSS or confirm the active package version</td></tr><tr><td>A third-party widget is decorated</td><td>Add <code>data-dynt-ignore</code> to its boundary or include it in <code>exclude</code></td></tr><tr><td>Motion persists after unmount</td><td>Ensure the owning boundary calls <code>destroy()</code> or uses the framework lifecycle adapter</td></tr></tbody></table></div>
+          <div class="docs-table-wrap"><table class="docs-table"><thead><tr><th>Symptom</th><th>Check</th></tr></thead><tbody><tr><td>A late-rendered section is not enhanced</td><td>Confirm <code>observe: true</code>, the element is inside <code>root</code>, and it matches <code>selector</code></td></tr><tr><td>A nested card reacts with its parent</td><td>Make the nested card a managed surface; deepest matching ownership receives input</td></tr><tr><td>Cells look too large inside cards</td><td>Use a three-level size such as <code>[22, 18, 14]</code> or a target-local size override</td></tr><tr><td>Tilt is difficult to notice</td><td>Verify <code>effects.tilt</code>, use content response, and test at a temporary demonstration value before selecting a restrained production value</td></tr><tr><td>Wave appears on hover</td><td>Hover should leave the canvas clear; inspect application CSS or confirm the active package version</td></tr><tr><td>A third-party widget is decorated</td><td>Add <code>data-dynt-ignore</code> to its boundary or include it in <code>exclude</code></td></tr><tr><td>Motion persists after unmount</td><td>Ensure the owning boundary calls <code>destroy()</code> or uses the framework lifecycle adapter</td></tr></tbody></table></div>
           <div class="docs-callout"><strong>Need the typed surface?</strong><p>Continue to the complete <a href="https://github.com/aibolt/dynt/blob/main/docs/API.md">API reference</a>, <a href="https://github.com/aibolt/dynt/blob/main/docs/COMPOSITION.md">composition guide</a>, and <a href="https://github.com/aibolt/dynt/blob/main/docs/TROUBLESHOOTING.md">repository troubleshooting guide</a>.</p></div>
         </section>
       </article>

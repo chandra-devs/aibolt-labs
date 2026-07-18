@@ -49,7 +49,7 @@ const {
 
   {!compact && (
     <div class="dynt-lab-readout" data-dynt-ignore aria-label="Current demonstration settings">
-      <span><small>Cell scale</small><strong data-dynt-cell-readout>26 · 22 · 18 px</strong></span>
+      <span><small>Cell scale</small><strong data-dynt-cell-readout>22 · 18 · 14 px</strong></span>
       <span><small>Wave character</small><strong data-dynt-preset-readout>Structural</strong></span>
       <span><small>Input ownership</small><strong>Deepest surface</strong></span>
       <span><small>Dynamic content</small><strong>Observed</strong></span>
@@ -88,9 +88,9 @@ const {
       <label>
         <span>Cell density</span>
         <select data-dynt-density>
-          <option value="fine">Fine · 26 / 22 / 18</option>
-          <option value="dense">Dense · 22 / 18 / 14</option>
-          <option value="open">Open · 32 / 26 / 20</option>
+          <option value="fine">Fine · 22 / 18 / 14</option>
+          <option value="dense">Dense · 18 / 15 / 12</option>
+          <option value="open">Open · 28 / 22 / 18</option>
         </select>
       </label>
     )}
@@ -128,7 +128,7 @@ const {
     let mode = 'combined';
     let presetName: keyof typeof kineticPresets = 'structural';
     let geometry = 'hexagon';
-    let density: [number, number, number] = [26, 22, 18];
+    let density: [number, number, number] = [22, 18, 14];
     const kineticFocus = lab.dataset.kineticFocus ?? 'full';
     let formation: ReturnType<typeof createFormation> | null = null;
     let kinetic: ReturnType<typeof createKinetic> | null = null;
@@ -243,9 +243,9 @@ const {
     });
     lab.querySelector<HTMLSelectElement>('[data-dynt-density]')?.addEventListener('change', (event) => {
       const densities: Record<string, [number, number, number]> = {
-        dense: [22, 18, 14],
-        fine: [26, 22, 18],
-        open: [32, 26, 20],
+        dense: [18, 15, 12],
+        fine: [22, 18, 14],
+        open: [28, 22, 18],
       };
       density = densities[(event.currentTarget as HTMLSelectElement).value] ?? densities.fine;
       applyKineticOptions();

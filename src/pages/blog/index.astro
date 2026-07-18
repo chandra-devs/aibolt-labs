@@ -5,7 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 ---
 
-<BaseLayout title="Blog — AIBolt Labs" description="Engineering notes on interface systems, open-source tools, geometry, motion, and practical software experiments.">
-  <section class="page-hero"><div class="shell"><div class="eyebrow">AIBolt Labs journal</div><h1 class="page-title">Engineering notes from inside the work.</h1><p class="lead">Architecture, physical interaction, release decisions, and the evidence behind our open-source projects.</p></div></section>
-  <section class="section"><div class="shell"><div class="grid-3">{posts.map((post) => <article class="card"><span class="number">{post.data.category}</span><h2>{post.data.title}</h2><p>{post.data.description}</p><a class="card-link" href={`/blog/${post.id}`}>Read article →</a></article>)}</div></div></section>
+<BaseLayout title="Journal — AIBolt Labs" description="Field notes on open-source software, interface systems, geometry, and release engineering.">
+  <section class="page-hero"><div class="shell"><div class="eyebrow">Journal</div><h1 class="page-title">Notes from inside<br />the engineering.</h1><p class="lead">Design reasoning, implementation contracts, release records, and observations that remain useful after the demonstration ends.</p></div></section>
+  <section class="section"><div class="shell"><div class="rule-heading">All field notes</div><div class="editorial-list">{posts.map((post) => <article class="editorial-row"><time datetime={post.data.published.toISOString()}>{post.data.published.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })}</time><div><span class="number">{post.data.category}</span><h3><a href={`/blog/${post.id}`}>{post.data.title}</a></h3><p>{post.data.description}</p></div><a href={`/blog/${post.id}`} aria-label={`Read ${post.data.title}`}>Read →</a></article>)}</div></div></section>
 </BaseLayout>

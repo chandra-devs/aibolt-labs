@@ -1,123 +1,137 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DyntLab from '../components/DyntLab.astro';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
+  .slice(0, 3);
 ---
 
 <BaseLayout>
   <section class="hero">
     <div class="shell hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow">AIBolt Labs</div>
-        <h1 class="display-title">Experimental software for expressive <span class="gold">interfaces.</span></h1>
-        <p class="lead">We build open-source developer tools, interaction systems, and practical interface experiments that make digital surfaces feel constructed, responsive, and alive.</p>
+        <div class="eyebrow">Independent open-source lab</div>
+        <h1 class="display-title">Open software,<br />made carefully.</h1>
+        <p class="lead">AIBolt Labs builds focused developer tools and interface systems, then opens the source, documents the decisions, and proves the work through real examples.</p>
         <div class="hero-actions">
-          <a class="button" href="/dynt">Explore DYNT <span aria-hidden="true">→</span></a>
-          <a class="button button-quiet" href="https://github.com/aibolt/dynt">View on GitHub <span aria-hidden="true">↗</span></a>
+          <a class="button" href="/projects">Browse the projects <span aria-hidden="true">→</span></a>
+          <a class="button button-quiet" href="https://github.com/aibolt">Visit GitHub <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="hero-note">Interface systems that form, respond, and elevate.</p>
+        <p class="hero-note">Small catalogue. Public source. Practical intent.</p>
       </div>
-      <div class="hero-art"><DyntLab compact viewportFlow /></div>
+
+      <aside class="lab-ledger" aria-label="Current work in the lab">
+        <div class="ledger-head"><strong>Lab ledger</strong><span>July 2026</span></div>
+        <div class="ledger-row">
+          <span>01</span><div><h3>DYNT</h3><p>Formation and Kinetic engines for existing interfaces.</p></div><span class="ledger-status">Published</span>
+        </div>
+        <div class="ledger-row">
+          <span>02</span><div><h3>Field notes</h3><p>Engineering decisions, experiments, and release records.</p></div><span class="ledger-status">Open</span>
+        </div>
+        <div class="ledger-row">
+          <span>03</span><div><h3>Demonstrations</h3><p>Working studies you can inspect, run, and question.</p></div><span class="ledger-status">Growing</span>
+        </div>
+        <div class="ledger-foot">Maintained at github.com/aibolt</div>
+      </aside>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="shell panel feature-band">
-      <div class="feature-grid">
-        <div class="feature-intro">
-          <div class="eyebrow">Featured project</div>
-          <h2>DYNT</h2>
-          <p>Constructed geometry and physical response for interfaces you already own.</p>
-          <a class="card-link" href="/dynt">Meet the system →</a>
-        </div>
-        <a class="card feature-visual" href="/dynt/formation">
-          <div class="eyebrow">Formation</div><h3>Form, reveal, withdraw.</h3><p>Line-led construction through reversible geometry.</p><span class="wire-path" aria-hidden="true"></span>
-        </a>
-        <a class="card card-blue feature-visual feature-visual-blue" href="/dynt/kinetic">
-          <div class="eyebrow eyebrow-blue">Kinetic</div><h3>Tilt, impact, propagate.</h3><p>Point-led physical response through cells and waves.</p><span class="wave-orbit" aria-hidden="true"></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="shell panel panel-body flow-grid">
+  <section class="section">
+    <div class="shell intro-grid">
       <div>
-        <div class="eyebrow">One boundary, two engines</div>
-        <h2 class="section-title">Enhance what already exists.</h2>
-        <p class="section-copy">Initialize at an application boundary, select the elements that matter, and let Formation and Kinetic coordinate without replacing your HTML.</p>
-        <a class="card-link" href="/dynt/docs">See the integration contract →</a>
+        <div class="rule-heading">The lab</div>
+        <h2 class="section-title">Useful experiments deserve a public life.</h2>
       </div>
-      <div class="flow-map" aria-label="DYNT integration flow">
-        <div class="flow-node">Your existing interface</div><span class="flow-arrow">→</span>
-        <div class="flow-node"><strong>Root + selectors</strong><br />framework-neutral</div><span class="flow-arrow">→</span>
-        <div class="flow-node"><strong>Formation</strong><br /><span class="blue">Kinetic</span><br />same semantic HTML</div>
+      <div>
+        <p class="lead">We use the lab to move an idea through the difficult middle: from an interesting interaction to a package another developer can install, understand, test, and remove cleanly.</p>
+        <p class="section-copy">Not every study becomes a product. The ones that do are separated into clear packages, documented at the boundary, and maintained in the open.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="install">
+  <section class="section-tight">
     <div class="shell">
-      <div class="eyebrow">Install and integrate</div>
-      <h2 class="section-title">Use either engine. Combine when the interface calls for both.</h2>
-      <div class="grid-2">
-        <pre class="code-block"><code><span class="code-gold"># Formation engine</span>
-npm install @dynt/formation
+      <div class="rule-heading">Project catalogue</div>
+      <div class="catalogue">
+        <article class="catalogue-row">
+          <span>01</span><div><h3>DYNT</h3><p>Constructed geometry and physical response for existing HTML.</p></div><p>Two independent engines, framework-neutral core, React and Web Component adapters.</p><a href="/dynt">View project →</a>
+        </article>
+        <article class="catalogue-row">
+          <span>02</span><div><h3>Formation studies</h3><p>Line-led arrival, enclosure, reveal, and withdrawal.</p></div><p>Nine profiles with one reversible lifecycle and dynamic discovery contract.</p><a href="/dynt/formation">Open studio →</a>
+        </article>
+        <article class="catalogue-row">
+          <span>03</span><div><h3>Kinetic studies</h3><p>Directional tilt, cell geometry, and contact-led waves.</p></div><p>Bounded response that keeps native content and application semantics intact.</p><a href="/dynt/kinetic">Open studio →</a>
+        </article>
+      </div>
+    </div>
+  </section>
 
-<span class="code-blue"># Kinetic engine</span>
-npm install @dynt/kinetic
-
-# Framework lifecycle adapters
-npm install @dynt/react
-npm install @dynt/web-components</code></pre>
-        <pre class="code-block"><code><span class="code-gold">import</span> {`{ createFormation }`} from '@dynt/formation';
-<span class="code-blue">import</span> {`{ createKinetic }`} from '@dynt/kinetic';
-
-const root = document.querySelector('#app');
-
-createFormation({`{ root, selector: '[data-surface]' }`});
-createKinetic({`{ root, selector: '[data-surface]' }`});</code></pre>
+  <section class="section">
+    <div class="shell featured-project">
+      <div class="featured-head">
+        <div><div class="eyebrow">Featured project</div><h2>DYNT</h2></div>
+        <div><p class="lead">An open-source interface system that adds visible construction and physical response to the UI you already own.</p><div class="hero-actions"><a class="button" href="/dynt">Explore DYNT</a><a class="button button-quiet" href="https://github.com/aibolt/dynt">Source on GitHub ↗</a></div></div>
+      </div>
+      <div class="engine-ledger">
+        <article class="engine-entry">
+          <div class="eyebrow">@dynt/formation</div>
+          <h3>Construction is a lifecycle.</h3>
+          <p>Interfaces are located, enclosed, revealed, withdrawn, and deconstructed through measured geometry.</p>
+          <a class="card-link" href="/dynt/formation">Study Formation →</a>
+        </article>
+        <article class="engine-entry engine-kinetic">
+          <div class="eyebrow eyebrow-blue">@dynt/kinetic</div>
+          <h3>Contact has a location.</h3>
+          <p>Surfaces tilt from the real input point and send turbulent waves through configurable cell fields.</p>
+          <a class="card-link blue" href="/dynt/kinetic">Study Kinetic →</a>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="section section-divider">
     <div class="shell">
-      <div class="eyebrow">Experiments from the lab</div>
-      <h2 class="section-title">Open investigations in geometry, motion, and interaction.</h2>
-      <div class="grid-4">
-        <a class="card" href="/dynt/formation"><span class="number">01</span><h3>Formation profiles</h3><p>Construction patterns, sequences, and reversible orders.</p><span class="card-link">Explore →</span></a>
-        <a class="card" href="/dynt/kinetic"><span class="number">02</span><h3>Cell geometry</h3><p>Square, honeycomb, circular, and interlocked renderers.</p><span class="card-link">Explore →</span></a>
-        <a class="card card-blue" href="/experiments"><span class="number">03</span><h3>Interface physics</h3><p>Tilt, drift, impact, and wave propagation studies.</p><span class="card-link">Explore →</span></a>
-        <a class="card" href="/experiments"><span class="number">04</span><h3>Practical interfaces</h3><p>Applying expressive systems without changing product semantics.</p><span class="card-link">Explore →</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="shell panel media-banner">
-      <div class="media-banner-content">
-        <div class="eyebrow">AIBolt Labs media</div>
-        <h2 class="section-title">Engineering notes and demonstrations, built in the open.</h2>
-        <p class="section-copy">Read the design reasoning, inspect the source, and follow upcoming video walkthroughs from the lab.</p>
-        <div class="hero-actions"><a class="button" href="/blog">Read the journal</a><a class="button button-quiet" href="/videos">Visit the channel</a></div>
+      <div class="rule-heading">How we work</div>
+      <div class="method-grid">
+        <article class="method-item"><span class="number">01 · OBSERVE</span><h3>Begin with the behaviour.</h3><p>Define what a person should perceive, what causes it, and where the system must remain quiet.</p></article>
+        <article class="method-item"><span class="number">02 · PROVE</span><h3>Build the difficult part.</h3><p>Test the real browser, lifecycle, accessibility, and performance constraints before polishing the story.</p></article>
+        <article class="method-item"><span class="number">03 · OPEN</span><h3>Publish the contract.</h3><p>Ship source, packages, examples, limitations, and enough documentation for independent use.</p></article>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="shell grid-2">
-      <div class="panel panel-body">
-        <div class="eyebrow">Latest articles</div>
-        <div class="list-row"><time>Jul 18</time><div><h3><a href="/blog/introducing-dynt">Introducing DYNT</a></h3><p>A framework-neutral system for Formation and Kinetic response.</p></div><span>→</span></div>
-        <div class="list-row"><time>Jul 18</time><div><h3><a href="/blog/interfaces-that-construct-themselves">Interfaces that construct themselves</a></h3><p>Viewport-led construction, profiles, and reversible geometry.</p></div><span>→</span></div>
-        <div class="list-row"><time>Jul 18</time><div><h3><a href="/blog/geometry-that-responds">Geometry that responds</a></h3><p>From contact location to turbulent cell waves.</p></div><span>→</span></div>
+      <div>
+        <div class="rule-heading">Latest field notes</div>
+        <div class="editorial-list">
+          {posts.map((post) => (
+            <article class="editorial-row">
+              <time datetime={post.data.published.toISOString()}>{post.data.published.toLocaleDateString('en', { month: 'short', day: 'numeric' })}</time>
+              <div><h3><a href={`/blog/${post.id}`}>{post.data.title}</a></h3><p>{post.data.description}</p></div>
+              <a href={`/blog/${post.id}`} aria-label={`Read ${post.data.title}`}>Read →</a>
+            </article>
+          ))}
+        </div>
+        <a class="card-link" href="/blog">Visit the journal →</a>
       </div>
-      <div class="panel panel-body">
-        <div class="eyebrow eyebrow-blue">Video channel</div>
-        <h2 class="section-title">AIBolt Labs on YouTube.</h2>
-        <p class="section-copy">The channel is live. The first release series will cover DYNT, Formation profiles, Kinetic geometry, and real integration workflows.</p>
-        <a class="button button-outline" href="https://www.youtube.com/@AiBoltLabs">Open YouTube channel ↗</a>
+      <div>
+        <div class="rule-heading">From the workbench</div>
+        <div class="editorial-list">
+          <article class="editorial-row"><span>Guide</span><div><h3><a href="/dynt/docs">Integrating DYNT</a></h3><p>Install one engine or both, then enhance matching HTML from a single boundary.</p></div><a href="/dynt/docs">Open →</a></article>
+          <article class="editorial-row"><span>Studio</span><div><h3><a href="/dynt/formation">Formation profiles</a></h3><p>Compare construction geometry and reversible withdrawal in a live package runtime.</p></div><a href="/dynt/formation">Open →</a></article>
+          <article class="editorial-row"><span>Studio</span><div><h3><a href="/dynt/kinetic">Kinetic response</a></h3><p>Isolate directional tilt from turbulent cell waves and inspect each cause.</p></div><a href="/dynt/kinetic">Open →</a></article>
+        </div>
+        <a class="card-link" href="/experiments">Browse experiments →</a>
       </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="shell open-callout">
+      <div><div class="eyebrow">Built in the open</div><h2>Read the source. Try the packages. Question the decisions.</h2><p>DYNT is public under the GPL-3.0 license, with owner-reviewed contributions and independently installable npm packages.</p></div>
+      <a class="button" href="https://github.com/aibolt/dynt">Open the repository ↗</a>
     </div>
   </section>
 </BaseLayout>

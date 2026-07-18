@@ -3,85 +3,75 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import DyntLab from '../../components/DyntLab.astro';
 ---
 
-<BaseLayout title="DYNT — Formation and Kinetic interface engines" description="DYNT brings line-led Formation and geometry-driven Kinetic response to existing interfaces through framework-neutral packages.">
+<BaseLayout title="DYNT — Formation and Kinetic interface engines" description="DYNT adds line-led Formation and contact-led Kinetic response to existing interfaces through independent, framework-neutral packages.">
   <section class="page-hero">
-    <div class="shell grid-2">
+    <div class="shell intro-grid">
       <div>
-        <div class="eyebrow">AIBolt Labs · Open source</div>
-        <h1 class="page-title">DYNT makes interfaces <span class="gold">construct</span> and <span class="blue">respond.</span></h1>
-        <p class="lead">Two independently installable engines. Formation owns line-led construction and reversible lifecycle. Kinetic owns directional tilt, cell geometry, impact, and turbulent waves.</p>
-        <div class="hero-actions"><a class="button" href="#live-lab">Run the live lab</a><a class="button button-quiet" href="https://github.com/aibolt/dynt">GitHub ↗</a></div>
+        <div class="breadcrumb"><a href="/projects">Projects</a> / DYNT</div>
+        <div class="eyebrow">Open-source project · v0.5.0</div>
+        <h1 class="page-title">An interface can<br />construct and respond.</h1>
       </div>
-      <div class="panel panel-body">
-        <div class="eyebrow">Published packages · 0.5.0</div>
-        <div class="list-row"><time>CORE</time><div><h3>@dynt/formation</h3><p>Construction, reveal, withdrawal, and profile registry.</p></div><a href="https://www.npmjs.com/package/@dynt/formation">npm ↗</a></div>
-        <div class="list-row"><time>CORE</time><div><h3>@dynt/kinetic</h3><p>Tilt, cells, waves, impact, drift, and content response.</p></div><a href="https://www.npmjs.com/package/@dynt/kinetic">npm ↗</a></div>
-        <div class="list-row"><time>ADAPTER</time><div><h3>@dynt/react</h3><p>Thin React lifecycle bindings.</p></div><a href="https://www.npmjs.com/package/@dynt/react">npm ↗</a></div>
-        <div class="list-row"><time>ADAPTER</time><div><h3>@dynt/web-components</h3><p>Custom-element lifecycle helpers.</p></div><a href="https://www.npmjs.com/package/@dynt/web-components">npm ↗</a></div>
+      <div>
+        <p class="lead">DYNT adds two optional capabilities to the HTML your application already owns: Formation constructs and withdraws through measured geometry; Kinetic responds to contact through directional tilt and turbulent cell waves.</p>
+        <div class="hero-actions"><a class="button" href="#live-lab">Open the live lab</a><a class="button button-quiet" href="https://github.com/aibolt/dynt">Source on GitHub ↗</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="shell catalogue">
+      <article class="catalogue-row"><span>01</span><div><h3>@dynt/formation</h3><p>Line-led construction and reversible lifecycle.</p></div><p>Install independently when an interface should visibly establish and remove its geometry.</p><a href="https://www.npmjs.com/package/@dynt/formation">npm ↗</a></article>
+      <article class="catalogue-row"><span>02</span><div><h3>@dynt/kinetic</h3><p>Contact-led physical response and cells.</p></div><p>Install independently when surfaces should respond to input without changing semantic HTML.</p><a href="https://www.npmjs.com/package/@dynt/kinetic">npm ↗</a></article>
+      <article class="catalogue-row"><span>03</span><div><h3>@dynt/react</h3><p>Thin lifecycle bindings for React.</p></div><p>Mount and clean up the same framework-neutral engines from a component boundary.</p><a href="https://www.npmjs.com/package/@dynt/react">npm ↗</a></article>
+      <article class="catalogue-row"><span>04</span><div><h3>@dynt/web-components</h3><p>Declarative custom-element lifecycle helpers.</p></div><p>Connect and disconnect engine boundaries without moving behaviour into a UI framework.</p><a href="https://www.npmjs.com/package/@dynt/web-components">npm ↗</a></article>
+    </div>
+  </section>
+
+  <section class="section section-divider">
+    <div class="shell">
+      <div class="rule-heading">Two engines, one boundary</div>
+      <div class="method-grid">
+        <article class="method-item"><span class="number">FORMATION</span><h3>Construct before revealing.</h3><p>Viewport lines locate targets, permanent geometry closes, content appears, and withdrawal reverses the same sequence.</p><a class="card-link" href="/dynt/formation">Formation studio →</a></article>
+        <article class="method-item"><span class="number">KINETIC</span><h3>Respond from contact.</h3><p>The near edge compresses, the far edge lifts, and an input-origin wave travels through a configurable cell field.</p><a class="card-link blue" href="/dynt/kinetic">Kinetic studio →</a></article>
+        <article class="method-item"><span class="number">INTEGRATION</span><h3>Keep the application yours.</h3><p>Both engines work from a root and selector, adopt later content, preserve native semantics, and clean up what they own.</p><a class="card-link" href="/dynt/docs">Integration handbook →</a></article>
       </div>
     </div>
   </section>
 
   <section class="section" id="live-lab">
     <div class="shell">
-      <div class="eyebrow">Live package demonstration</div>
-      <h2 class="section-title">Switch engines, change geometry, reverse Formation, and insert a new surface.</h2>
-      <p class="section-copy">This is running the public npm packages. Move the pointer toward a surface edge to feel directional plate response. Click a surface to send a turbulent wave through its cells.</p>
-      <div style="margin-top: 28px"><DyntLab viewportFlow /></div>
+      <div class="rule-heading">Live package runtime</div>
+      <h2 class="section-title">Study the engines together or one at a time.</h2>
+      <p class="section-copy">Switch modes, change the Formation profile, reduce or open the cell field, send waves from real input points, reverse the lifecycle, and insert a surface after startup.</p>
+      <div style="margin-top: 32px"><DyntLab viewportFlow /></div>
     </div>
   </section>
 
   <section class="section section-divider">
-    <div class="shell feature-grid">
-      <div class="feature-intro"><div class="eyebrow">Independent by design</div><h2 class="section-title">Install only the behavior your interface needs.</h2><p class="section-copy">Neither core engine imports the other. Coordination happens through shared DOM state and lifecycle events.</p></div>
-      <article class="panel panel-body"><div class="eyebrow">Formation</div><h2>Construction is a lifecycle.</h2><p class="section-copy">Viewport-spanning travel lines locate each target before permanent geometry forms. Withdrawal reverses the target order and construction sequence.</p><a class="card-link" href="/dynt/formation">Explore Formation →</a></article>
-      <article class="panel panel-body"><div class="eyebrow eyebrow-blue">Kinetic</div><h2>Contact has a location.</h2><p class="section-copy">The near edge compresses, the far edge lifts, and circular cell fronts originate at the actual point of input.</p><a class="card-link blue" href="/dynt/kinetic">Explore Kinetic →</a></article>
-    </div>
-  </section>
+    <div class="shell intro-grid">
+      <div><div class="rule-heading">Boundary contract</div><h2 class="section-title">Matching elements participate without per-component edits.</h2></div>
+      <div><p class="lead">Initialize once at a stable application boundary. The engine discovers matching elements inside that root, observes later insertions when requested, and restores owned state when destroyed.</p><pre class="code-block"><code>{`const root = document.querySelector('#app');
 
-  <section class="section">
-    <div class="shell">
-      <div class="eyebrow">Demonstration map</div>
-      <h2 class="section-title">Learn each system in isolation, then combine them.</h2>
-      <p class="section-copy">The dedicated studios separate cause from effect. Study Formation choreography, directional Tilt, and turbulent Wave geometry without one interaction hiding another.</p>
-      <div class="grid-3" style="margin-top: 28px">
-        <article class="card"><span class="number">01 · FORMATION</span><h3>Construction and withdrawal</h3><p>Compare nine geometry profiles and replay both directions of the lifecycle.</p><a class="card-link" href="/dynt/formation">Open Formation studio →</a></article>
-        <article class="card card-blue"><span class="number">02 · TILT</span><h3>Directional plate response</h3><p>See the near edge compress while the opposite edge and content rise.</p><a class="card-link blue" href="/dynt/kinetic#tilt-lab">Open Tilt studio →</a></article>
-        <article class="card card-blue"><span class="number">03 · WAVE</span><h3>Cells and turbulent flow</h3><p>Compare fine-density square, honeycomb, circle, and interlocked cell fields.</p><a class="card-link blue" href="/dynt/kinetic#wave-lab">Open Wave studio →</a></article>
-      </div>
-    </div>
-  </section>
+createFormation({
+  root,
+  selector: '[data-surface]',
+  observe: true
+});
 
-  <section class="section">
-    <div class="shell">
-      <div class="eyebrow">Framework support</div>
-      <h2 class="section-title">One core contract across application stacks.</h2>
-      <div class="grid-3">
-        <article class="card"><span class="number">DOM</span><h3>Plain JavaScript</h3><p>Initialize either engine against a document, fragment, shadow root, or contained HTML element.</p></article>
-        <article class="card"><span class="number">REACT</span><h3>Lifecycle hooks</h3><p>Thin hooks mount and clean up the same core engines without moving renderer behavior into React.</p></article>
-        <article class="card"><span class="number">WEB COMPONENTS</span><h3>Custom elements</h3><p>Declarative hosts connect and disconnect safely while keeping the core framework-neutral.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="shell panel panel-body grid-2">
-      <div><div class="eyebrow">Start with Formation</div><pre class="code-block"><code>npm install @dynt/formation
-
-import {`{ createFormation }`} from '@dynt/formation';
-import '@dynt/formation/styles.css';</code></pre></div>
-      <div><div class="eyebrow eyebrow-blue">Start with Kinetic</div><pre class="code-block"><code>npm install @dynt/kinetic
-
-import {`{ createKinetic }`} from '@dynt/kinetic';
-import '@dynt/kinetic/styles.css';</code></pre></div>
+createKinetic({
+  root,
+  selector: '[data-surface]',
+  observe: true,
+  cells: { size: [22, 18, 14] }
+});`}</code></pre></div>
     </div>
   </section>
 
   <section class="section">
     <div class="shell grid-3">
-      <article class="card"><h3>Accessible by contract</h3><p>Decoration is hidden from assistive technology, input remains application-owned, and reduced motion preserves state without physical animation.</p><a class="card-link" href="https://github.com/aibolt/dynt/blob/main/docs/ACCESSIBILITY.md">Accessibility contract ↗</a></article>
-      <article class="card"><h3>Bounded by budgets</h3><p>Surface counts, active reactions, wave cells, pixel ratio, and idle scheduling are explicit operational limits.</p><a class="card-link" href="https://github.com/aibolt/dynt/blob/main/docs/PERFORMANCE.md">Performance guide ↗</a></article>
-      <article class="card"><h3>Ready to integrate</h3><p>Follow the complete API surface, selector rules, lifecycle commands, configuration layers, and examples.</p><a class="card-link" href="/dynt/docs">Read the documentation →</a></article>
+      <article class="card"><span class="number">ACCESSIBILITY</span><h3>Decoration stays decoration.</h3><p>Native names, values, focus order, and input remain application-owned. Reduced motion preserves meaningful state without physical animation.</p><a class="card-link" href="https://github.com/aibolt/dynt/blob/main/docs/ACCESSIBILITY.md">Read the contract ↗</a></article>
+      <article class="card"><span class="number">PERFORMANCE</span><h3>Work stops at rest.</h3><p>Surface counts, active reactions, cell totals, device-pixel ratio, and simultaneous waves are explicit operational budgets.</p><a class="card-link" href="https://github.com/aibolt/dynt/blob/main/docs/PERFORMANCE.md">Read the budgets ↗</a></article>
+      <article class="card"><span class="number">LICENSE</span><h3>GPL-3.0, built in public.</h3><p>Inspect the source, install the released packages, reproduce the examples, and propose changes through the repository.</p><a class="card-link" href="https://github.com/aibolt/dynt">Open GitHub ↗</a></article>
     </div>
   </section>
 </BaseLayout>

@@ -2,17 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Projects — AIBolt Labs" description="Open-source systems and practical interface experiments from AIBolt Labs.">
-  <section class="page-hero"><div class="shell"><div class="eyebrow">Projects</div><h1 class="page-title">Systems built to become useful beyond the lab.</h1><p class="lead">Our projects begin as focused experiments and mature into documented, independently usable tools.</p></div></section>
+<BaseLayout title="Projects — AIBolt Labs" description="Open-source software and interface systems from AIBolt Labs.">
+  <section class="page-hero"><div class="shell"><div class="eyebrow">Project catalogue</div><h1 class="page-title">A small collection,<br />maintained with care.</h1><p class="lead">Projects enter this catalogue when the source is public, the boundaries are documented, and someone else can use the work without inheriting the lab itself.</p></div></section>
   <section class="section">
-    <div class="shell grid-2">
-      <article class="panel panel-body">
-        <div class="eyebrow">Flagship open-source project</div>
-        <h2 class="section-title">DYNT</h2>
-        <p class="section-copy">A framework-neutral interface system with independently installable Formation and Kinetic engines.</p>
-        <div class="hero-actions"><a class="button" href="/dynt">Explore DYNT</a><a class="button button-quiet" href="https://github.com/aibolt/dynt">Source code ↗</a></div>
-      </article>
-      <article class="panel media-banner"><div class="media-banner-content"><div class="eyebrow">In development</div><h2 class="section-title">More from AIBolt Labs.</h2><p class="section-copy">Future projects will join this catalogue with the same emphasis on transparent engineering, live proof, and practical adoption.</p></div></article>
+    <div class="shell">
+      <div class="rule-heading">Published</div>
+      <div class="catalogue">
+        <article class="catalogue-row"><span>01</span><div><h3>DYNT</h3><p>Formation and Kinetic interface engines.</p></div><p>Framework-neutral core packages with optional React and Web Component lifecycle adapters.</p><a href="/dynt">Project record →</a></article>
+        <article class="catalogue-row"><span>01A</span><div><h3>@dynt/formation</h3><p>Reversible, line-led interface construction.</p></div><p>Nine geometry profiles, viewport acquisition, observation, and explicit lifecycle phases.</p><a href="https://www.npmjs.com/package/@dynt/formation">npm package ↗</a></article>
+        <article class="catalogue-row"><span>01B</span><div><h3>@dynt/kinetic</h3><p>Contact-led physical interface response.</p></div><p>Directional tilt, waves, four cell renderers, content response, and operational budgets.</p><a href="https://www.npmjs.com/package/@dynt/kinetic">npm package ↗</a></article>
+      </div>
     </div>
   </section>
+  <section class="section-tight"><div class="shell open-callout"><div><div class="eyebrow">Source and stewardship</div><h2>Public to use. Deliberate to change.</h2><p>Source is open for inspection and use. Proposed changes are reviewed by the maintainers so the project can evolve without losing its contracts.</p></div><a class="button" href="https://github.com/aibolt">Browse GitHub ↗</a></div></section>
 </BaseLayout>

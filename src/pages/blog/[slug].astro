@@ -16,7 +16,7 @@ const published = post.data.published.toLocaleDateString('en', { month: 'long', 
 
 <BaseLayout title={`${post.data.title} — AIBolt Labs`} description={post.data.description}>
   <article>
-    <header class="page-hero"><div class="shell"><div class="breadcrumb"><a href="/blog">Blog</a> / {post.data.category}</div><div class="eyebrow">{post.data.category} · {published}</div><h1 class="page-title">{post.data.title}</h1><p class="lead">{post.data.description}</p></div></header>
+    <header class="page-hero"><div class="shell"><div class="breadcrumb"><a href="/blog">Journal</a> / {post.data.category}</div><div class="eyebrow">{post.data.category} · {published}</div><h1 class="page-title">{post.data.title}</h1><p class="lead">{post.data.description}</p></div></header>
     <div class="section"><div class="shell prose"><Content /></div></div>
   </article>
   <script type="application/ld+json" is:inline set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'TechArticle', headline: post.data.title, description: post.data.description, datePublished: post.data.published.toISOString(), publisher: { '@type': 'Organization', name: 'AIBolt Labs' }, mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href })} />
