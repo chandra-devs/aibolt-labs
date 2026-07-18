@@ -3,66 +3,112 @@ interface Props {
   compact?: boolean;
   viewportFlow?: boolean;
   initialMode?: 'formation' | 'kinetic' | 'combined';
+  kineticFocus?: 'full' | 'wave';
+  showModes?: boolean;
 }
 
-const { compact = false, viewportFlow = false, initialMode = 'combined' } = Astro.props;
+const {
+  compact = false,
+  viewportFlow = false,
+  initialMode = 'combined',
+  kineticFocus = 'full',
+  showModes = true,
+} = Astro.props;
 ---
 
-<section class:list={['dynt-lab', { 'dynt-lab-compact': compact }]} data-dynt-lab data-viewport-flow={viewportFlow ? 'true' : 'false'} data-initial-mode={initialMode}>
+<section class:list={['dynt-lab', { 'dynt-lab-compact': compact }]} data-dynt-lab data-viewport-flow={viewportFlow ? 'true' : 'false'} data-initial-mode={initialMode} data-kinetic-focus={kineticFocus}>
   <div class="dynt-lab-toolbar" data-dynt-ignore>
-    <div class="dynt-mode-switch" aria-label="DYNT engine mode">
-      <button type="button" data-dynt-mode="formation" aria-pressed="false">Formation</button>
-      <button type="button" data-dynt-mode="kinetic" aria-pressed="false">Kinetic</button>
-      <button type="button" data-dynt-mode="combined" aria-pressed="true">Combined</button>
-    </div>
+    {showModes ? (
+      <div class="dynt-mode-switch" aria-label="DYNT engine mode">
+        <button type="button" data-dynt-mode="formation" aria-pressed="false">Formation</button>
+        <button type="button" data-dynt-mode="kinetic" aria-pressed="false">Kinetic</button>
+        <button type="button" data-dynt-mode="combined" aria-pressed="true">Combined</button>
+      </div>
+    ) : (
+      <div class="dynt-focus-label"><span>Wave</span> Cell geometry studio</div>
+    )}
     <div class="dynt-lab-status"><span></span> Live package runtime</div>
   </div>
 
   <div class="dynt-live-stage" data-dynt-stage>
     <article class="dynt-live-surface" data-dynt-cell-shape="hexagon">
-      <div data-dynt-reactor><span class="surface-icon">01</span><h3>Construct</h3><p>Interfaces form through reversible geometry.</p></div>
+      <div data-dynt-reactor><span class="surface-icon">01</span><h3>Construct</h3><p>Interfaces form through reversible geometry.</p></div><div class="surface-cues" data-dynt-ignore><span>Move to edge</span><span>Click for wave</span></div>
     </article>
     <article class="dynt-live-surface" data-dynt-cell-shape="circle">
-      <div data-dynt-reactor><span class="surface-icon surface-icon-blue">02</span><h3>Respond</h3><p>Surfaces react at the point of contact.</p></div>
+      <div data-dynt-reactor><span class="surface-icon surface-icon-blue">02</span><h3>Respond</h3><p>Surfaces react at the point of contact.</p></div><div class="surface-cues" data-dynt-ignore><span>Local origin</span><span>Radial flow</span></div>
     </article>
     <article class="dynt-live-surface" data-dynt-cell-shape="diamond">
-      <div data-dynt-reactor><span class="surface-icon">03</span><h3>Integrate</h3><p>One boundary enhances existing HTML.</p></div>
+      <div data-dynt-reactor><span class="surface-icon">03</span><h3>Integrate</h3><p>One boundary enhances existing HTML.</p></div><div class="surface-cues" data-dynt-ignore><span>Owned field</span><span>Semantic content</span></div>
     </article>
     {!compact && (
       <article class="dynt-live-surface" data-dynt-cell-shape="square">
-        <div data-dynt-reactor><span class="surface-icon surface-icon-blue">04</span><h3>Remain semantic</h3><p>Motion stays separate from accessible meaning.</p></div>
+        <div data-dynt-reactor><span class="surface-icon surface-icon-blue">04</span><h3>Remain semantic</h3><p>Motion stays separate from accessible meaning.</p></div><div class="surface-cues" data-dynt-ignore><span>Native HTML</span><span>Decoration hidden</span></div>
       </article>
     )}
   </div>
 
+  {!compact && (
+    <div class="dynt-lab-readout" data-dynt-ignore aria-label="Current demonstration settings">
+      <span><small>Cell scale</small><strong data-dynt-cell-readout>26 · 22 · 18 px</strong></span>
+      <span><small>Wave character</small><strong data-dynt-preset-readout>Structural</strong></span>
+      <span><small>Input ownership</small><strong>Deepest surface</strong></span>
+      <span><small>Dynamic content</small><strong>Observed</strong></span>
+    </div>
+  )}
+
   <div class="dynt-lab-controls" data-dynt-ignore>
-    <label>
-      <span>Formation profile</span>
-      <select data-dynt-profile>
-        <option value="line-push">Line Push</option>
-        <option value="line-rise">Line Rise</option>
-        <option value="arc-trace">Arc Trace</option>
-        <option value="squircle-sweep">Squircle Sweep</option>
-        <option value="chamfer-fold">Chamfer Fold</option>
-        <option value="magnetic-segment">Magnetic Segment</option>
-        <option value="radial-compass">Radial Compass</option>
-        <option value="aperture-iris">Aperture Iris</option>
-        <option value="elastic-membrane">Elastic Membrane</option>
-      </select>
-    </label>
+    {kineticFocus === 'full' && (
+      <label>
+        <span>Formation profile</span>
+        <select data-dynt-profile>
+          <option value="line-push">Line Push</option>
+          <option value="line-rise">Line Rise</option>
+          <option value="arc-trace">Arc Trace</option>
+          <option value="squircle-sweep">Squircle Sweep</option>
+          <option value="chamfer-fold">Chamfer Fold</option>
+          <option value="magnetic-segment">Magnetic Segment</option>
+          <option value="radial-compass">Radial Compass</option>
+          <option value="aperture-iris">Aperture Iris</option>
+          <option value="elastic-membrane">Elastic Membrane</option>
+        </select>
+      </label>
+    )}
+    {!compact && (
+      <label>
+        <span>Wave character</span>
+        <select data-dynt-preset>
+          <option value="structural">Structural</option>
+          <option value="locator">Locator</option>
+          <option value="tidal">Tidal</option>
+          <option value="impact">Impact</option>
+        </select>
+      </label>
+    )}
+    {!compact && (
+      <label>
+        <span>Cell density</span>
+        <select data-dynt-density>
+          <option value="fine">Fine · 26 / 22 / 18</option>
+          <option value="dense">Dense · 22 / 18 / 14</option>
+          <option value="open">Open · 32 / 26 / 20</option>
+        </select>
+      </label>
+    )}
     <div class="geometry-control" aria-label="Kinetic cell geometry">
       <span>Cell geometry</span>
       <div>
-        <button type="button" data-dynt-geometry="square" aria-label="Square cells">□</button>
-        <button type="button" data-dynt-geometry="hexagon" aria-label="Hexagon cells">⬡</button>
-        <button type="button" data-dynt-geometry="circle" aria-label="Circular cells">○</button>
-        <button type="button" data-dynt-geometry="diamond" aria-label="Interlocked cells">◇</button>
+        <button type="button" data-dynt-geometry="square" aria-label="Square cells" aria-pressed="false">□</button>
+        <button type="button" data-dynt-geometry="hexagon" aria-label="Hexagon cells" aria-pressed="true" data-active="true">⬡</button>
+        <button type="button" data-dynt-geometry="circle" aria-label="Circular cells" aria-pressed="false">○</button>
+        <button type="button" data-dynt-geometry="diamond" aria-label="Interlocked cells" aria-pressed="false">◇</button>
       </div>
     </div>
     <div class="lab-actions">
-      <button type="button" class="button button-small button-quiet" data-dynt-withdraw>Withdraw</button>
-      <button type="button" class="button button-small" data-dynt-replay>Replay formation</button>
-      {!compact && <button type="button" class="button button-small button-outline" data-dynt-add>Add surface</button>}
+      {kineticFocus === 'full' ? (
+        <><button type="button" class="button button-small button-quiet" data-dynt-withdraw>Withdraw</button><button type="button" class="button button-small" data-dynt-replay>Replay formation</button>{!compact && <button type="button" class="button button-small button-outline" data-dynt-add>Add surface</button>}</>
+      ) : (
+        <button type="button" class="button button-small" data-dynt-fire>Send wave</button>
+      )}
     </div>
   </div>
 </section>
@@ -80,6 +126,10 @@ const { compact = false, viewportFlow = false, initialMode = 'combined' } = Astr
 
     let profile = 'line-push';
     let mode = 'combined';
+    let presetName: keyof typeof kineticPresets = 'structural';
+    let geometry = 'hexagon';
+    let density: [number, number, number] = [26, 22, 18];
+    const kineticFocus = lab.dataset.kineticFocus ?? 'full';
     let formation: ReturnType<typeof createFormation> | null = null;
     let kinetic: ReturnType<typeof createKinetic> | null = null;
 
@@ -95,13 +145,42 @@ const { compact = false, viewportFlow = false, initialMode = 'combined' } = Astr
         tokens: {
           duration: 380,
           easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
-          fillColor: 'rgb(10 11 13 / 0.96)',
-          lineColor: '#ffbf00',
+          fillColor: 'var(--dynt-lab-fill)',
+          lineColor: 'var(--dynt-gold)',
           lineWidth: '1px',
           overflow: 13,
         },
       });
       return formation;
+    };
+
+    const kineticOptions = () => {
+      const preset = kineticPresets[presetName];
+      return {
+        cells: { ...preset.cells, shape: geometry as 'square' | 'hexagon' | 'circle' | 'diamond', size: density },
+        effects: {
+          ...preset.effects,
+          content: true,
+          drift: kineticFocus === 'full' && preset.effects.drift,
+          tilt: kineticFocus === 'full',
+          wave: true,
+        },
+        motion: { ...preset.motion, maxTilt: kineticFocus === 'full' ? preset.motion.maxTilt : 0 },
+        flow: { ...preset.flow, multi: true, maxWaves: 3 },
+      };
+    };
+
+    const updateReadout = () => {
+      const cellReadout = lab.querySelector<HTMLElement>('[data-dynt-cell-readout]');
+      const presetReadout = lab.querySelector<HTMLElement>('[data-dynt-preset-readout]');
+      if (cellReadout) cellReadout.textContent = `${density.join(' · ')} px`;
+      if (presetReadout) presetReadout.textContent = presetName[0].toUpperCase() + presetName.slice(1);
+    };
+
+    const applyKineticOptions = () => {
+      kinetic?.update(kineticOptions());
+      kinetic?.refresh();
+      updateReadout();
     };
 
     const mountKinetic = () => {
@@ -110,11 +189,7 @@ const { compact = false, viewportFlow = false, initialMode = 'combined' } = Astr
         root: stage,
         selector: '.dynt-live-surface',
         observe: true,
-        ...kineticPresets.structural,
-        cells: { ...kineticPresets.structural.cells, shape: 'hexagon', size: [38, 30, 24] },
-        effects: { ...kineticPresets.structural.effects, content: true, tilt: true, wave: true },
-        motion: { ...kineticPresets.structural.motion, maxTilt: 1.35, response: 0.2 },
-        flow: { ...kineticPresets.structural.flow, turbulence: 0.42, overflow: 13, multi: true, maxWaves: 3 },
+        ...kineticOptions(),
       });
       return kinetic;
     };
@@ -162,13 +237,30 @@ const { compact = false, viewportFlow = false, initialMode = 'combined' } = Astr
       formation = null;
       if (mode !== 'kinetic') mountFormation().form();
     });
+    lab.querySelector<HTMLSelectElement>('[data-dynt-preset]')?.addEventListener('change', (event) => {
+      presetName = (event.currentTarget as HTMLSelectElement).value as keyof typeof kineticPresets;
+      applyKineticOptions();
+    });
+    lab.querySelector<HTMLSelectElement>('[data-dynt-density]')?.addEventListener('change', (event) => {
+      const densities: Record<string, [number, number, number]> = {
+        dense: [22, 18, 14],
+        fine: [26, 22, 18],
+        open: [32, 26, 20],
+      };
+      density = densities[(event.currentTarget as HTMLSelectElement).value] ?? densities.fine;
+      applyKineticOptions();
+    });
     lab.querySelectorAll<HTMLButtonElement>('[data-dynt-geometry]').forEach((button) => {
       button.addEventListener('click', () => {
-        const shape = button.dataset.dyntGeometry ?? 'hexagon';
-        stage.querySelectorAll<HTMLElement>('.dynt-live-surface').forEach((surface) => { surface.dataset.dyntCellShape = shape; });
-        lab.querySelectorAll('[data-dynt-geometry]').forEach((item) => item.removeAttribute('data-active'));
+        geometry = button.dataset.dyntGeometry ?? 'hexagon';
+        stage.querySelectorAll<HTMLElement>('.dynt-live-surface').forEach((surface) => { surface.dataset.dyntCellShape = geometry; });
+        lab.querySelectorAll<HTMLButtonElement>('[data-dynt-geometry]').forEach((item) => {
+          item.removeAttribute('data-active');
+          item.setAttribute('aria-pressed', 'false');
+        });
         button.dataset.active = 'true';
-        kinetic?.refresh();
+        button.setAttribute('aria-pressed', 'true');
+        applyKineticOptions();
       });
     });
     lab.querySelector<HTMLButtonElement>('[data-dynt-withdraw]')?.addEventListener('click', () => mountFormation().withdraw());
@@ -180,34 +272,51 @@ const { compact = false, viewportFlow = false, initialMode = 'combined' } = Astr
       next.innerHTML = '<div data-dynt-reactor><span class="surface-icon">NEW</span><h3>Discovered</h3><p>Observed after the engines were already running.</p></div>';
       stage.append(next);
     });
+    lab.querySelector<HTMLButtonElement>('[data-dynt-fire]')?.addEventListener('click', () => {
+      const target = stage.querySelector<HTMLElement>('.dynt-live-surface');
+      if (target) mountKinetic().impact(target, { pressure: 1, x: 0.28, y: -0.2 });
+    });
 
+    updateReadout();
     setMode(lab.dataset.initialMode ?? 'combined');
   }
 </script>
 
 <style is:global>
-  .dynt-lab { --dynt-kinetic-color: #64c6ff; overflow: hidden; border: 1px solid rgba(255,191,0,.42); border-radius: 16px; background: rgba(7,8,9,.96); box-shadow: 0 28px 90px rgba(0,0,0,.5); }
-  .dynt-lab-toolbar { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
-  .dynt-mode-switch { display: inline-flex; padding: 4px; border: 1px solid rgba(255,255,255,.12); border-radius: 9px; background: #070809; }
-  .dynt-mode-switch button { min-height: 34px; padding: .35rem .8rem; border: 0; border-radius: 6px; background: transparent; color: #9f9fa5; cursor: pointer; font-size: .76rem; }
-  .dynt-mode-switch button[aria-pressed="true"] { background: rgba(255,191,0,.13); color: #ffcf39; box-shadow: inset 0 0 0 1px rgba(255,191,0,.55); }
-  .dynt-lab-status { display: flex; align-items: center; gap: 7px; color: #8e8e94; font-size: .7rem; }
-  .dynt-lab-status span { width: 7px; height: 7px; border-radius: 50%; background: #ffbf00; box-shadow: 0 0 12px rgba(255,191,0,.8); }
-  .dynt-live-stage { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; min-height: 410px; padding: 28px; align-content: center; background: radial-gradient(circle at 86% 80%, rgba(100,198,255,.08), transparent 30%); }
+  .dynt-lab { --dynt-gold: #ffbf00; --dynt-blue: #64c6ff; --dynt-kinetic-color: var(--dynt-blue); --dynt-lab-fill: rgb(10 11 13 / .96); --dynt-lab-bg: rgb(7 8 9 / .96); --dynt-lab-control: #090a0b; --dynt-lab-text: #f5f5f4; --dynt-lab-muted: #a1a1aa; --dynt-lab-line: rgb(255 255 255 / .1); overflow: hidden; border: 1px solid rgb(255 191 0 / .42); border-radius: 16px; background: var(--dynt-lab-bg); color: var(--dynt-lab-text); box-shadow: 0 28px 90px rgb(0 0 0 / .34); }
+  html[data-theme="light"] .dynt-lab { --dynt-gold: #a96d00; --dynt-blue: #0076a8; --dynt-lab-fill: rgb(255 253 248 / .98); --dynt-lab-bg: rgb(255 253 248 / .98); --dynt-lab-control: #f4ecde; --dynt-lab-text: #17140d; --dynt-lab-muted: #625d53; --dynt-lab-line: rgb(34 27 13 / .14); box-shadow: 0 26px 70px rgb(73 54 17 / .16); }
+  .dynt-lab-toolbar { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 14px; border-bottom: 1px solid var(--dynt-lab-line); }
+  .dynt-mode-switch { display: inline-flex; padding: 4px; border: 1px solid var(--dynt-lab-line); border-radius: 9px; background: var(--dynt-lab-control); }
+  .dynt-mode-switch button { min-height: 34px; padding: .35rem .8rem; border: 0; border-radius: 6px; background: transparent; color: var(--dynt-lab-muted); cursor: pointer; font-size: .76rem; }
+  .dynt-mode-switch button[aria-pressed="true"] { background: rgb(255 191 0 / .13); color: var(--dynt-gold); box-shadow: inset 0 0 0 1px rgb(255 191 0 / .55); }
+  .dynt-focus-label { display: flex; align-items: center; gap: 8px; color: var(--dynt-lab-muted); font-size: .75rem; }
+  .dynt-focus-label span { padding: .32rem .55rem; border: 1px solid color-mix(in srgb, var(--dynt-blue) 45%, transparent); border-radius: 999px; color: var(--dynt-blue); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .dynt-lab-status { display: flex; align-items: center; gap: 7px; color: var(--dynt-lab-muted); font-size: .7rem; }
+  .dynt-lab-status span { width: 7px; height: 7px; border-radius: 50%; background: var(--dynt-gold); box-shadow: 0 0 12px color-mix(in srgb, var(--dynt-gold) 70%, transparent); }
+  .dynt-live-stage { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; min-height: 410px; padding: 28px; align-content: center; background: radial-gradient(circle at 86% 80%, color-mix(in srgb, var(--dynt-blue) 9%, transparent), transparent 30%); }
   .dynt-lab-compact .dynt-live-stage { grid-template-columns: repeat(3, minmax(0,1fr)); min-height: 320px; padding: 24px; }
-  .dynt-live-surface { position: relative; min-width: 0; min-height: 160px; display: flex; align-items: flex-end; padding: 22px; border: 1px solid rgba(255,191,0,.35); border-radius: 10px; background: linear-gradient(145deg, rgba(255,191,0,.055), rgba(255,255,255,.018)); isolation: isolate; cursor: crosshair; }
+  .dynt-live-surface { position: relative; min-width: 0; min-height: 170px; display: flex; align-items: flex-end; padding: 22px; border: 1px solid color-mix(in srgb, var(--dynt-gold) 36%, transparent); border-radius: 10px; background: linear-gradient(145deg, color-mix(in srgb, var(--dynt-gold) 6%, transparent), transparent); isolation: isolate; cursor: crosshair; }
   .dynt-live-surface > [data-dynt-reactor] { position: relative; z-index: 2; }
   .dynt-live-surface h3 { margin: .55rem 0 .25rem; font-size: 1rem; }
-  .dynt-live-surface p { margin: 0; max-width: 210px; color: #a1a1aa; font-size: .78rem; line-height: 1.5; }
-  .surface-icon { display: inline-flex; color: #ffbf00; font: 700 .7rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; }
-  .surface-icon-blue { color: #64c6ff; }
-  .dynt-lab-controls { display: grid; grid-template-columns: minmax(150px,.7fr) 1fr auto; align-items: end; gap: 18px; padding: 16px 18px 18px; border-top: 1px solid rgba(255,255,255,.1); }
-  .dynt-lab-controls label, .geometry-control { display: grid; gap: 6px; color: #8f8f96; font-size: .68rem; }
-  .dynt-lab-controls select { width: 100%; min-height: 38px; padding: 0 .7rem; border: 1px solid rgba(255,255,255,.14); border-radius: 7px; background: #090a0b; }
+  .dynt-live-surface p { margin: 0; max-width: 210px; color: var(--dynt-lab-muted); font-size: .78rem; line-height: 1.5; }
+  .surface-icon { display: inline-flex; color: var(--dynt-gold); font: 700 .7rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .14em; }
+  .surface-icon-blue { color: var(--dynt-blue); }
+  .surface-cues { position: absolute; top: 10px; right: 10px; z-index: 3; display: grid; justify-items: end; gap: 3px; pointer-events: none; }
+  .surface-cues span { color: var(--dynt-lab-muted); font: 650 .55rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; text-transform: uppercase; opacity: .72; }
+  .dynt-lab-readout { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-top: 1px solid var(--dynt-lab-line); background: color-mix(in srgb, var(--dynt-lab-control) 72%, transparent); }
+  .dynt-lab-readout > span { display: grid; gap: 2px; padding: 12px 16px; border-right: 1px solid var(--dynt-lab-line); }
+  .dynt-lab-readout > span:last-child { border-right: 0; }
+  .dynt-lab-readout small { color: var(--dynt-lab-muted); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+  .dynt-lab-readout strong { font-size: .75rem; font-weight: 720; }
+  .dynt-lab-controls { display: grid; grid-template-columns: repeat(4, minmax(125px,1fr)) auto; align-items: end; gap: 14px; padding: 16px 18px 18px; border-top: 1px solid var(--dynt-lab-line); }
+  .dynt-lab-compact .dynt-lab-controls { grid-template-columns: minmax(150px,.7fr) 1fr auto; }
+  .dynt-lab-controls label, .geometry-control { display: grid; gap: 6px; color: var(--dynt-lab-muted); font-size: .68rem; }
+  .dynt-lab-controls select { width: 100%; min-height: 38px; padding: 0 .7rem; border: 1px solid var(--dynt-lab-line); border-radius: 7px; background: var(--dynt-lab-control); color: var(--dynt-lab-text); }
   .geometry-control > div, .lab-actions { display: flex; flex-wrap: wrap; gap: 7px; }
-  .geometry-control button { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.13); border-radius: 7px; background: #090a0b; color: #d4d4d8; cursor: pointer; }
-  .geometry-control button:hover, .geometry-control button[data-active="true"] { border-color: #64c6ff; color: #64c6ff; background: rgba(100,198,255,.08); }
+  .geometry-control button { width: 38px; height: 38px; border: 1px solid var(--dynt-lab-line); border-radius: 7px; background: var(--dynt-lab-control); color: var(--dynt-lab-text); cursor: pointer; }
+  .geometry-control button:hover, .geometry-control button[data-active="true"] { border-color: var(--dynt-blue); color: var(--dynt-blue); background: color-mix(in srgb, var(--dynt-blue) 8%, transparent); }
   .lab-actions { justify-content: flex-end; }
-  @media (max-width: 820px) { .dynt-lab-compact .dynt-live-stage, .dynt-live-stage { grid-template-columns: 1fr; min-height: auto; } .dynt-lab-controls { grid-template-columns: 1fr; align-items: stretch; } .lab-actions { justify-content: flex-start; } }
+  @media (max-width: 1050px) { .dynt-lab-controls { grid-template-columns: repeat(2, minmax(0,1fr)); } .lab-actions { justify-content: flex-start; } }
+  @media (max-width: 820px) { .dynt-lab-compact .dynt-live-stage, .dynt-live-stage { grid-template-columns: 1fr; min-height: auto; } .dynt-lab-controls, .dynt-lab-compact .dynt-lab-controls { grid-template-columns: 1fr; align-items: stretch; } .dynt-lab-readout { grid-template-columns: repeat(2, 1fr); } .dynt-lab-readout > span:nth-child(2) { border-right: 0; } .dynt-lab-readout > span:nth-child(-n+2) { border-bottom: 1px solid var(--dynt-lab-line); } .lab-actions { justify-content: flex-start; } }
   @media (max-width: 520px) { .dynt-lab-toolbar { align-items: flex-start; flex-direction: column; } .dynt-mode-switch { width: 100%; } .dynt-mode-switch button { flex: 1; } .dynt-live-stage { padding: 18px; } }
 </style>

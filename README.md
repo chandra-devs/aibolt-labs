@@ -4,7 +4,7 @@ The public website for [AIBolt Labs](https://aiboltlabs.com): open-source projec
 
 ## Featured project
 
-The site includes a dedicated DYNT experience powered by the public `@dynt/formation` and `@dynt/kinetic` npm packages. The live lab demonstrates independent and combined engine modes, reversible Formation profiles, Kinetic cell geometry, dynamic element discovery, and framework-neutral integration.
+The site includes a dedicated DYNT experience powered by the public `@dynt/formation` and `@dynt/kinetic` npm packages. It provides independent and combined engine modes, reversible Formation profiles, separate Tilt and Wave studios, fine-density cell geometry, dynamic element discovery, and framework-neutral integration. The full site supports persistent light and dark themes.
 
 ## Development
 

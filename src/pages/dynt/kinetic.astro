@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DyntLab from '../../components/DyntLab.astro';
+import TiltShowcase from '../../components/TiltShowcase.astro';
 const geometries = [
   ['Square', 'A regular rectilinear field for structured surfaces.'],
   ['Connected hexagon', 'A continuous honeycomb with shared visual adjacency.'],
@@ -10,8 +11,34 @@ const geometries = [
 ---
 
 <BaseLayout title="DYNT Kinetic — Physical interface response" description="Kinetic gives existing interfaces bounded directional tilt, click-origin cell waves, impact, drift, and semantic content response.">
-  <section class="page-hero"><div class="shell"><div class="breadcrumb"><a href="/dynt">DYNT</a> / Kinetic</div><div class="eyebrow eyebrow-blue">@dynt/kinetic</div><h1 class="page-title">Response begins where contact happens.</h1><p class="lead">Kinetic resolves the nearest owned surface, compresses the near edge, raises the far edge, and sends circular turbulent waves outward from the actual input point.</p><div class="hero-actions"><a class="button" href="https://www.npmjs.com/package/@dynt/kinetic">Install from npm ↗</a><a class="button button-quiet" href="https://github.com/aibolt/dynt/tree/main/packages/kinetic">Source ↗</a></div></div></section>
-  <section class="section"><div class="shell"><div class="eyebrow eyebrow-blue">Live Kinetic lab</div><h2 class="section-title">Move to an edge. Click anywhere. Change the cells.</h2><p class="section-copy">The pointer position controls bounded directional tilt. Clicks create cell geometry only for the active wave and propagate through semantic reactors by distance.</p><div style="margin-top: 28px"><DyntLab initialMode="kinetic" /></div></div></section>
+  <section class="page-hero"><div class="shell"><div class="breadcrumb"><a href="/dynt">DYNT</a> / Kinetic</div><div class="eyebrow eyebrow-blue">@dynt/kinetic</div><h1 class="page-title">Response begins where contact happens.</h1><p class="lead">Kinetic resolves the nearest owned surface, compresses the near edge, raises the far edge, and sends circular turbulent waves outward from the actual input point.</p><div class="hero-actions"><a class="button" href="#tilt-lab">Try Tilt</a><a class="button button-outline" href="#wave-lab">Try Wave</a><a class="button button-quiet" href="https://www.npmjs.com/package/@dynt/kinetic">Install from npm ↗</a></div></div></section>
+
+  <section class="section" id="tilt-lab"><div class="shell"><div class="eyebrow eyebrow-blue">01 · Directional Tilt</div><h2 class="section-title">See exactly which side compresses and which side rises.</h2><p class="section-copy">This isolated demonstration turns waves and drift off. Move across the plate or use the four edge-position triggers to study contact location, opposing depth, content travel, and the return to rest.</p><div style="margin-top: 28px"><TiltShowcase /></div></div></section>
+
+  <section class="section section-divider"><div class="shell grid-3"><article class="card"><span class="number">NEAR</span><h3>Compression follows input</h3><p>The edge nearest the pointer moves down and inward instead of expanding the entire surface indiscriminately.</p></article><article class="card card-blue"><span class="number">FAR</span><h3>Depth opens opposite contact</h3><p>The far edge lifts with an opposing shadow, producing a readable plate response from one bounded transform.</p></article><article class="card"><span class="number">CONTENT</span><h3>Interior groups respond locally</h3><p>Semantic content uses its own translate channel while the application-owned element transform remains untouched.</p></article></div></section>
+
+  <section class="section" id="wave-lab"><div class="shell"><div class="eyebrow eyebrow-blue">02 · Wave and cell geometry</div><h2 class="section-title">Smaller cells reveal a more precise turbulent front.</h2><p class="section-copy">Tilt is disabled in this lab, so every click teaches the wave system alone. Switch geometry, density, and wave character; then click any card or use Send wave.</p><div style="margin-top: 28px"><DyntLab initialMode="kinetic" kineticFocus="wave" showModes={false} /></div></div></section>
   <section class="section section-divider"><div class="shell"><div class="eyebrow">Cell geometry</div><h2 class="section-title">One wave model across four renderers.</h2><div class="grid-4">{geometries.map(([name, description], index) => <article class="card card-blue"><span class="number">{String(index + 1).padStart(2, '0')}</span><h3>{name}</h3><p>{description}</p></article>)}</div></div></section>
-  <section class="section-tight"><div class="shell grid-3"><article class="card"><h3>Directional plate response</h3><p>The near overflow contracts while the far edge extends. Application-owned transforms remain untouched.</p></article><article class="card card-blue"><h3>Circular turbulent waves</h3><p>Speed, thickness, recovery, intensity, turbulence, growth, and overflow remain independently configurable.</p></article><article class="card"><h3>Content response</h3><p>Locally owned semantic groups lift, rebound, and settle in distance order without changing their meaning.</p></article></div></section>
+  <section class="section-tight"><div class="shell panel panel-body grid-2"><div><div class="eyebrow eyebrow-blue">Tilt only</div><pre class="code-block"><code>{`createKinetic({
+  root,
+  selector: '[data-tilt-surface]',
+  effects: {
+    tilt: true,
+    content: true,
+    wave: false,
+    drift: false
+  },
+  motion: { maxTilt: 1.35, response: 0.18 }
+});`}</code></pre></div><div><div class="eyebrow eyebrow-blue">Wave only</div><pre class="code-block"><code>{`createKinetic({
+  root,
+  selector: '[data-wave-surface]',
+  effects: {
+    tilt: false,
+    content: true,
+    wave: true,
+    drift: false
+  },
+  cells: { shape: 'hexagon', size: [26, 22, 18] },
+  flow: { turbulence: 0.42, maxWaves: 3 }
+});`}</code></pre></div></div></section>
 </BaseLayout>

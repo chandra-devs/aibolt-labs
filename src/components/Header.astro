@@ -20,8 +20,12 @@ const links = [
       ))}
     </nav>
     <div class="header-actions">
-      <a class="button button-small button-outline" href="/dynt">Explore DYNT</a>
+      <a class="button button-small button-outline header-cta" href="/dynt">Explore DYNT</a>
       <a class="icon-link" href="https://github.com/aibolt" aria-label="AIBolt on GitHub">GH</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode">
+        <span class="theme-toggle-icon" aria-hidden="true" data-theme-icon>☼</span>
+        <span data-theme-label>Light</span>
+      </button>
     </div>
     <details class="mobile-nav">
       <summary aria-label="Open navigation">Menu</summary>
@@ -32,3 +36,28 @@ const links = [
     </details>
   </div>
 </header>
+
+<script>
+  const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  const syncThemeToggle = () => {
+    if (!themeToggle) return;
+    const light = document.documentElement.dataset.theme === 'light';
+    themeToggle.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} mode`);
+    const icon = themeToggle.querySelector<HTMLElement>('[data-theme-icon]');
+    const label = themeToggle.querySelector<HTMLElement>('[data-theme-label]');
+    if (icon) icon.textContent = light ? '◐' : '☼';
+    if (label) label.textContent = light ? 'Dark' : 'Light';
+  };
+
+  syncThemeToggle();
+  themeToggle?.addEventListener('click', () => {
+    const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    document.querySelector('[data-theme-color]')?.setAttribute('content', theme === 'light' ? '#f6f1e7' : '#050505');
+    localStorage.setItem('aibolt-theme', theme);
+    syncThemeToggle();
+    window.dispatchEvent(new CustomEvent('aibolt:theme', { detail: { theme } }));
+  });
+</script>

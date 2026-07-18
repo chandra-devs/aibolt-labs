@@ -26,7 +26,18 @@ const socialImage = new URL(image, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#050505" data-theme-color />
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem('aibolt-theme');
+        const theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('[data-theme-color]')?.setAttribute('content', theme === 'light' ? '#f6f1e7' : '#050505');
+      })();
+    </script>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/favicon.png" />

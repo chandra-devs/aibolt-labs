@@ -1,0 +1,156 @@
+<section class="tilt-showcase" data-tilt-showcase>
+  <div class="tilt-showcase-head" data-dynt-ignore>
+    <div>
+      <span class="tilt-kicker">Tilt isolated</span>
+      <h3>A directional plate, not a card wobble.</h3>
+    </div>
+    <p>Move across the plate or trigger an edge position. The contact side compresses, the opposite side lifts, and locally owned content follows at a bounded depth.</p>
+  </div>
+
+  <div class="tilt-workbench">
+    <div class="tilt-stage" data-tilt-root>
+      <button class="tilt-point tilt-point-nw" type="button" data-tilt-impact data-x="-1" data-y="-1" aria-label="Demonstrate upper-left contact">NW</button>
+      <button class="tilt-point tilt-point-ne" type="button" data-tilt-impact data-x="1" data-y="-1" aria-label="Demonstrate upper-right contact">NE</button>
+      <button class="tilt-point tilt-point-sw" type="button" data-tilt-impact data-x="-1" data-y="1" aria-label="Demonstrate lower-left contact">SW</button>
+      <button class="tilt-point tilt-point-se" type="button" data-tilt-impact data-x="1" data-y="1" aria-label="Demonstrate lower-right contact">SE</button>
+
+      <article class="tilt-surface" data-tilt-surface>
+        <div class="tilt-contact-marker" aria-hidden="true"></div>
+        <div class="tilt-surface-content" data-dynt-reactor>
+          <span>Owned surface · live input</span>
+          <h3>Contact has a location.</h3>
+          <p>The response comes from the point you approach, then settles back to a neutral plane.</p>
+          <div class="tilt-content-row"><span>Native HTML</span><span>Bounded response</span><span>Idle at rest</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="tilt-instruments" data-dynt-ignore>
+      <div><span>Contact zone</span><strong data-contact-readout>Centre</strong><small>Input origin</small></div>
+      <div><span>Near side</span><strong data-near-readout>Balanced</strong><small>Compresses</small></div>
+      <div><span>Far side</span><strong data-far-readout>Balanced</strong><small>Raises</small></div>
+    </div>
+  </div>
+
+  <div class="tilt-controls" data-dynt-ignore>
+    <span>Demonstration strength</span>
+    <div role="group" aria-label="Tilt demonstration strength">
+      <button type="button" data-tilt-strength="1.35" aria-pressed="false">Product · 1.35°</button>
+      <button type="button" data-tilt-strength="3.8" aria-pressed="true">Studio · 3.8°</button>
+      <button type="button" data-tilt-strength="6" aria-pressed="false">Expressive · 6°</button>
+    </div>
+    <p>Studio strength is intentionally clearer for learning. Product defaults remain restrained.</p>
+  </div>
+</section>
+
+<script>
+  import { createKinetic } from '@dynt/kinetic';
+
+  document.querySelectorAll<HTMLElement>('[data-tilt-showcase]').forEach((showcase) => {
+    if (showcase.dataset.ready === 'true') return;
+    showcase.dataset.ready = 'true';
+
+    const root = showcase.querySelector<HTMLElement>('[data-tilt-root]');
+    const surface = showcase.querySelector<HTMLElement>('[data-tilt-surface]');
+    if (!root || !surface) return;
+
+    const contactReadout = showcase.querySelector<HTMLElement>('[data-contact-readout]');
+    const nearReadout = showcase.querySelector<HTMLElement>('[data-near-readout]');
+    const farReadout = showcase.querySelector<HTMLElement>('[data-far-readout]');
+
+    const kinetic = createKinetic({
+      root,
+      selector: '[data-tilt-surface]',
+      effects: { content: true, drift: false, tilt: true, wave: false },
+      motion: { contentLift: 0, contentTravel: 7, maxTilt: 3.8, response: 0.24 },
+      limits: { maxActive: 1, maxSurfaces: 1 },
+    });
+
+    const positionName = (x: number, y: number) => {
+      const horizontal = x < -0.22 ? 'left' : x > 0.22 ? 'right' : '';
+      const vertical = y < -0.22 ? 'upper' : y > 0.22 ? 'lower' : '';
+      return [vertical, horizontal].filter(Boolean).join(' ') || 'centre';
+    };
+
+    const oppositeName = (x: number, y: number) => positionName(-x, -y);
+
+    const setContact = (x: number, y: number) => {
+      showcase.style.setProperty('--tilt-contact-x', `${(x + 1) * 50}%`);
+      showcase.style.setProperty('--tilt-contact-y', `${(y + 1) * 50}%`);
+      showcase.dataset.contactActive = Math.abs(x) > 0.08 || Math.abs(y) > 0.08 ? 'true' : 'false';
+      if (contactReadout) contactReadout.textContent = positionName(x, y);
+      if (nearReadout) nearReadout.textContent = positionName(x, y);
+      if (farReadout) farReadout.textContent = oppositeName(x, y);
+    };
+
+    surface.addEventListener('pointermove', (event) => {
+      const bounds = surface.getBoundingClientRect();
+      const x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1));
+      const y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1));
+      setContact(x, y);
+    });
+    surface.addEventListener('pointerleave', () => setContact(0, 0));
+
+    showcase.querySelectorAll<HTMLButtonElement>('[data-tilt-impact]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const x = Number(button.dataset.x ?? 0);
+        const y = Number(button.dataset.y ?? 0);
+        setContact(x, y);
+        kinetic.impact(surface, { pressure: 1, x, y });
+      });
+    });
+
+    showcase.querySelectorAll<HTMLButtonElement>('[data-tilt-strength]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const maxTilt = Number(button.dataset.tiltStrength ?? 3.8);
+        kinetic.update({ motion: { maxTilt } });
+        showcase.querySelectorAll<HTMLButtonElement>('[data-tilt-strength]').forEach((item) => {
+          item.setAttribute('aria-pressed', String(item === button));
+        });
+      });
+    });
+
+    setContact(0, 0);
+  });
+</script>
+
+<style is:global>
+  .tilt-showcase { --tilt-contact-x: 50%; --tilt-contact-y: 50%; --tilt-blue: #64c6ff; --tilt-gold: #ffbf00; --tilt-bg: #070809; --tilt-panel: #0c0d0f; --tilt-text: #f5f5f4; --tilt-muted: #a1a1aa; --tilt-line: rgb(255 255 255 / .12); overflow: hidden; border: 1px solid color-mix(in srgb, var(--tilt-blue) 42%, transparent); border-radius: 18px; background: var(--tilt-bg); color: var(--tilt-text); box-shadow: 0 30px 90px rgb(0 0 0 / .34); }
+  html[data-theme="light"] .tilt-showcase { --tilt-blue: #0076a8; --tilt-gold: #9b6500; --tilt-bg: #fffdf8; --tilt-panel: #f4ecde; --tilt-text: #17140d; --tilt-muted: #625d53; --tilt-line: rgb(34 27 13 / .14); box-shadow: 0 28px 70px rgb(73 54 17 / .15); }
+  .tilt-showcase-head { display: grid; grid-template-columns: 1fr minmax(300px, .9fr); gap: 30px; align-items: end; padding: 24px 28px; border-bottom: 1px solid var(--tilt-line); }
+  .tilt-showcase-head h3 { margin: .35rem 0 0; font-size: clamp(1.45rem, 3vw, 2.35rem); line-height: 1.05; letter-spacing: -.04em; }
+  .tilt-showcase-head p { margin: 0; color: var(--tilt-muted); font-size: .9rem; }
+  .tilt-kicker { color: var(--tilt-blue); font-size: .65rem; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; }
+  .tilt-workbench { display: grid; grid-template-columns: minmax(0, 1fr) 210px; min-height: 480px; }
+  .tilt-stage { position: relative; display: grid; place-items: center; padding: 70px; perspective: 1100px; background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--tilt-blue) 12%, transparent), transparent 46%); }
+  .tilt-stage::before { content: ""; position: absolute; inset: 24px; background-image: linear-gradient(var(--tilt-line) 1px, transparent 1px), linear-gradient(90deg, var(--tilt-line) 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(circle, black, transparent 78%); opacity: .32; pointer-events: none; }
+  .tilt-surface { --dynt-kinetic-color: var(--tilt-blue); position: relative; z-index: 2; width: min(100%, 620px); min-height: 300px; display: grid; align-items: end; padding: 42px; border-radius: 18px; isolation: isolate; cursor: crosshair; }
+  .tilt-surface .dynt-kinetic__layer { border: 1px solid color-mix(in srgb, var(--tilt-blue) 58%, transparent); border-radius: inherit; background: linear-gradient(145deg, color-mix(in srgb, var(--tilt-blue) 10%, transparent), color-mix(in srgb, var(--tilt-gold) 6%, transparent)), var(--tilt-panel); }
+  .tilt-surface .dynt-kinetic__layer::before, .tilt-surface .dynt-kinetic__layer::after { content: ""; position: absolute; pointer-events: none; }
+  .tilt-surface .dynt-kinetic__layer::before { inset: 12px; border: 1px solid color-mix(in srgb, var(--tilt-gold) 28%, transparent); border-radius: 12px; }
+  .tilt-surface .dynt-kinetic__layer::after { inset: 0; background: linear-gradient(90deg, transparent 49.8%, color-mix(in srgb, var(--tilt-line) 70%, transparent) 50%, transparent 50.2%), linear-gradient(transparent 49.8%, color-mix(in srgb, var(--tilt-line) 70%, transparent) 50%, transparent 50.2%); opacity: .7; }
+  .tilt-surface-content { position: relative; z-index: 2; max-width: 440px; }
+  .tilt-surface-content > span { color: var(--tilt-blue); font: 750 .64rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .tilt-surface-content h3 { margin: .65rem 0 .5rem; font-size: clamp(1.8rem, 4vw, 3.25rem); line-height: .98; letter-spacing: -.055em; }
+  .tilt-surface-content p { margin: 0; color: var(--tilt-muted); max-width: 410px; }
+  .tilt-content-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+  .tilt-content-row span { padding: .38rem .6rem; border: 1px solid var(--tilt-line); border-radius: 999px; color: var(--tilt-muted); font-size: .62rem; }
+  .tilt-contact-marker { position: absolute; z-index: 4; left: var(--tilt-contact-x); top: var(--tilt-contact-y); width: 18px; height: 18px; border: 1px solid var(--tilt-gold); border-radius: 50%; opacity: 0; translate: -50% -50%; box-shadow: 0 0 0 8px color-mix(in srgb, var(--tilt-gold) 10%, transparent), 0 0 28px color-mix(in srgb, var(--tilt-gold) 58%, transparent); pointer-events: none; transition: left .08s linear, top .08s linear, opacity .2s ease; }
+  .tilt-showcase[data-contact-active="true"] .tilt-contact-marker { opacity: 1; }
+  .tilt-point { position: absolute; z-index: 5; width: 42px; height: 42px; border: 1px solid var(--tilt-line); border-radius: 9px; background: var(--tilt-panel); color: var(--tilt-muted); cursor: pointer; font: 750 .58rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .tilt-point:hover, .tilt-point:focus-visible { border-color: var(--tilt-blue); color: var(--tilt-blue); }
+  .tilt-point-nw { left: 24px; top: 24px; } .tilt-point-ne { right: 24px; top: 24px; } .tilt-point-sw { left: 24px; bottom: 24px; } .tilt-point-se { right: 24px; bottom: 24px; }
+  .tilt-instruments { display: grid; align-content: stretch; border-left: 1px solid var(--tilt-line); background: color-mix(in srgb, var(--tilt-panel) 80%, transparent); }
+  .tilt-instruments > div { display: grid; align-content: center; gap: 4px; padding: 22px; border-bottom: 1px solid var(--tilt-line); }
+  .tilt-instruments > div:last-child { border-bottom: 0; }
+  .tilt-instruments span, .tilt-controls > span { color: var(--tilt-muted); font-size: .58rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
+  .tilt-instruments strong { color: var(--tilt-blue); font-size: 1.08rem; text-transform: capitalize; }
+  .tilt-instruments small { color: var(--tilt-muted); font-size: .68rem; }
+  .tilt-controls { display: grid; grid-template-columns: auto 1fr minmax(220px,.7fr); gap: 18px; align-items: center; padding: 16px 20px; border-top: 1px solid var(--tilt-line); }
+  .tilt-controls > div { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tilt-controls button { min-height: 36px; padding: .42rem .7rem; border: 1px solid var(--tilt-line); border-radius: 8px; background: var(--tilt-panel); color: var(--tilt-muted); cursor: pointer; font-size: .7rem; }
+  .tilt-controls button[aria-pressed="true"] { border-color: var(--tilt-blue); color: var(--tilt-blue); background: color-mix(in srgb, var(--tilt-blue) 9%, transparent); }
+  .tilt-controls p { margin: 0; color: var(--tilt-muted); font-size: .7rem; }
+  @media (max-width: 900px) { .tilt-showcase-head { grid-template-columns: 1fr; gap: 12px; } .tilt-workbench { grid-template-columns: 1fr; } .tilt-instruments { grid-template-columns: repeat(3, 1fr); border-left: 0; border-top: 1px solid var(--tilt-line); } .tilt-instruments > div { border-right: 1px solid var(--tilt-line); border-bottom: 0; } .tilt-instruments > div:last-child { border-right: 0; } .tilt-controls { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) { .tilt-showcase-head { padding: 20px; } .tilt-stage { padding: 62px 22px; } .tilt-surface { min-height: 330px; padding: 30px; } .tilt-instruments { grid-template-columns: 1fr; } .tilt-instruments > div { border-right: 0; border-bottom: 1px solid var(--tilt-line); } .tilt-point-nw, .tilt-point-sw { left: 10px; } .tilt-point-ne, .tilt-point-se { right: 10px; } }
+</style>
