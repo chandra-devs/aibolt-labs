@@ -133,6 +133,15 @@ const {
     let formation: ReturnType<typeof createFormation> | null = null;
     let kinetic: ReturnType<typeof createKinetic> | null = null;
 
+    const formationTokens = () => ({
+      duration: 380,
+      easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      fillColor: 'var(--dynt-lab-fill)',
+      lineColor: 'var(--dynt-gold)',
+      lineWidth: '1px',
+      ...(['line-push', 'line-rise'].includes(profile) ? { overflow: 13 } : {}),
+    });
+
     const mountFormation = () => {
       if (formation) return formation;
       const useViewportFlow = lab.dataset.viewportFlow === 'true' && ['line-push', 'line-rise'].includes(profile);
@@ -142,14 +151,7 @@ const {
         profile,
         observe: true,
         viewportFlow: useViewportFlow ? { duration: 1080, lineLength: 720, overrun: 34, stagger: 125 } : false,
-        tokens: {
-          duration: 380,
-          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
-          fillColor: 'var(--dynt-lab-fill)',
-          lineColor: 'var(--dynt-gold)',
-          lineWidth: '1px',
-          overflow: 13,
-        },
+        tokens: formationTokens(),
       });
       return formation;
     };
@@ -215,12 +217,16 @@ const {
 
     const replayFormation = () => {
       const controller = mountFormation();
-      const targets = stage.querySelectorAll('.dynt-live-surface').length;
-      const completed = new Set<Element>();
+      const targets = Array.from(stage.querySelectorAll('.dynt-live-surface'));
+      const completed = new Set<Element>(targets.filter((target) => target.getAttribute('data-dynt-formation-phase') === 'unformed'));
+      if (completed.size >= targets.length) {
+        controller.form();
+        return;
+      }
       const unsubscribe = controller.subscribe(({ element, phase }) => {
         if (phase !== 'unformed') return;
         completed.add(element);
-        if (completed.size >= targets) {
+        if (completed.size >= targets.length) {
           unsubscribe();
           requestAnimationFrame(() => controller.form());
         }
@@ -271,6 +277,7 @@ const {
       next.dataset.dyntCellShape = 'circle';
       next.innerHTML = '<div data-dynt-reactor><span class="surface-icon">NEW</span><h3>Discovered</h3><p>Observed after the engines were already running.</p></div>';
       stage.append(next);
+      requestAnimationFrame(() => formation?.form(next));
     });
     lab.querySelector<HTMLButtonElement>('[data-dynt-fire]')?.addEventListener('click', () => {
       const target = stage.querySelector<HTMLElement>('.dynt-live-surface');
