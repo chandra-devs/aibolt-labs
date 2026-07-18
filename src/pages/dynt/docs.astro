@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="DYNT Documentation — Getting started" description="Install and integrate DYNT Formation and Kinetic with plain DOM, React, or Web Components.">
+  <section class="page-hero"><div class="shell"><div class="breadcrumb"><a href="/dynt">DYNT</a> / Documentation</div><div class="eyebrow">Getting started</div><h1 class="page-title">Add behavior at an application boundary.</h1><p class="lead">Start with one engine, one root, and one selector. Add framework lifecycle helpers only when your application needs them.</p></div></section>
+  <section class="section"><div class="shell prose"><h2>Install the engines</h2><pre><code>npm install @dynt/formation @dynt/kinetic</code></pre><h2>Plain DOM</h2><pre><code>import {`{ createFormation }`} from '@dynt/formation';
+import {`{ createKinetic }`} from '@dynt/kinetic';
+import '@dynt/formation/styles.css';
+import '@dynt/kinetic/styles.css';
+
+const root = document.querySelector('#app');
+
+const formation = createFormation({`{
+  root,
+  selector: '[data-dynt-surface]',
+  profile: 'line-push',
+  observe: true,
+  viewportFlow: true
+}`});
+
+const kinetic = createKinetic({`{
+  root,
+  selector: '[data-dynt-surface]',
+  observe: true
+}`});</code></pre><h2>Framework lifecycle adapters</h2><p>Install <code>@dynt/react</code> for React hooks or <code>@dynt/web-components</code> for custom-element helpers. Both adapters mount the same core engines and keep renderer behavior in the framework-neutral packages.</p><h2>Dynamic interfaces</h2><p>Use <code>observe: true</code> when sections, routes, or component trees insert matching elements later. Mutation records are batched, newly matching elements are enhanced, and elements that leave the boundary are restored.</p><h2>Operational controls</h2><p>Both controllers expose <code>refresh()</code>, <code>update()</code>, and <code>destroy()</code>. Formation also exposes <code>form()</code>, <code>withdraw()</code>, and lifecycle subscriptions. Kinetic exposes <code>pause()</code>, <code>resume()</code>, and programmatic <code>impact()</code>.</p><h2>Complete reference</h2><p>Use the <a href="https://github.com/aibolt/dynt/blob/main/docs/API.md">API reference</a>, <a href="https://github.com/aibolt/dynt/blob/main/docs/ACCESSIBILITY.md">accessibility contract</a>, and <a href="https://github.com/aibolt/dynt/blob/main/docs/PERFORMANCE.md">performance guide</a> for the complete typed surface.</p></div></section>
+</BaseLayout>

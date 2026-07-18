@@ -1,0 +1,34 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  ['/projects', 'Projects'],
+  ['/experiments', 'Experiments'],
+  ['/blog', 'Blog'],
+  ['/videos', 'Videos'],
+  ['/about', 'About'],
+];
+---
+
+<header class="site-header" data-dynt-ignore>
+  <div class="shell header-inner">
+    <a class="brand" href="/" aria-label="AIBolt Labs home">
+      <img src="/brand/aibolt-labs-wordmark.png" alt="AIBolt Labs" width="158" height="79" />
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {links.map(([href, label]) => (
+        <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>
+      ))}
+    </nav>
+    <div class="header-actions">
+      <a class="button button-small button-outline" href="/dynt">Explore DYNT</a>
+      <a class="icon-link" href="https://github.com/aibolt" aria-label="AIBolt on GitHub">GH</a>
+    </div>
+    <details class="mobile-nav">
+      <summary aria-label="Open navigation">Menu</summary>
+      <nav aria-label="Mobile navigation">
+        {links.map(([href, label]) => <a href={href}>{label}</a>)}
+        <a href="/dynt">Explore DYNT</a>
+      </nav>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DyntLab from '../components/DyntLab.astro';
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">AIBolt Labs</div>
+        <h1 class="display-title">Experimental software for expressive <span class="gold">interfaces.</span></h1>
+        <p class="lead">We build open-source developer tools, interaction systems, and practical interface experiments that make digital surfaces feel constructed, responsive, and alive.</p>
+        <div class="hero-actions">
+          <a class="button" href="/dynt">Explore DYNT <span aria-hidden="true">→</span></a>
+          <a class="button button-quiet" href="https://github.com/aibolt/dynt">View on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="hero-note">Interface systems that form, respond, and elevate.</p>
+      </div>
+      <div class="hero-art"><DyntLab compact viewportFlow /></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="shell panel feature-band">
+      <div class="feature-grid">
+        <div class="feature-intro">
+          <div class="eyebrow">Featured project</div>
+          <h2>DYNT</h2>
+          <p>Constructed geometry and physical response for interfaces you already own.</p>
+          <a class="card-link" href="/dynt">Meet the system →</a>
+        </div>
+        <a class="card feature-visual" href="/dynt/formation">
+          <div class="eyebrow">Formation</div><h3>Form, reveal, withdraw.</h3><p>Line-led construction through reversible geometry.</p><span class="wire-corner" aria-hidden="true"></span>
+        </a>
+        <a class="card card-blue feature-visual feature-visual-blue" href="/dynt/kinetic">
+          <div class="eyebrow eyebrow-blue">Kinetic</div><h3>Tilt, impact, propagate.</h3><p>Point-led physical response through cells and waves.</p><span class="wave-orbit" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="shell panel panel-body flow-grid">
+      <div>
+        <div class="eyebrow">One boundary, two engines</div>
+        <h2 class="section-title">Enhance what already exists.</h2>
+        <p class="section-copy">Initialize at an application boundary, select the elements that matter, and let Formation and Kinetic coordinate without replacing your HTML.</p>
+        <a class="card-link" href="/dynt/docs">See the integration contract →</a>
+      </div>
+      <div class="flow-map" aria-label="DYNT integration flow">
+        <div class="flow-node">Your existing interface</div><span class="flow-arrow">→</span>
+        <div class="flow-node"><strong>Root + selectors</strong><br />framework-neutral</div><span class="flow-arrow">→</span>
+        <div class="flow-node"><strong>Formation</strong><br /><span class="blue">Kinetic</span><br />same semantic HTML</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="install">
+    <div class="shell">
+      <div class="eyebrow">Install and integrate</div>
+      <h2 class="section-title">Use either engine. Combine when the interface calls for both.</h2>
+      <div class="grid-2">
+        <pre class="code-block"><code><span class="code-gold"># Formation engine</span>
+npm install @dynt/formation
+
+<span class="code-blue"># Kinetic engine</span>
+npm install @dynt/kinetic
+
+# Framework lifecycle adapters
+npm install @dynt/react
+npm install @dynt/web-components</code></pre>
+        <pre class="code-block"><code><span class="code-gold">import</span> {`{ createFormation }`} from '@dynt/formation';
+<span class="code-blue">import</span> {`{ createKinetic }`} from '@dynt/kinetic';
+
+const root = document.querySelector('#app');
+
+createFormation({`{ root, selector: '[data-surface]' }`});
+createKinetic({`{ root, selector: '[data-surface]' }`});</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-divider">
+    <div class="shell">
+      <div class="eyebrow">Experiments from the lab</div>
+      <h2 class="section-title">Open investigations in geometry, motion, and interaction.</h2>
+      <div class="grid-4">
+        <a class="card" href="/dynt/formation"><span class="number">01</span><h3>Formation profiles</h3><p>Construction patterns, sequences, and reversible orders.</p><span class="card-link">Explore →</span></a>
+        <a class="card" href="/dynt/kinetic"><span class="number">02</span><h3>Cell geometry</h3><p>Square, honeycomb, circular, and interlocked renderers.</p><span class="card-link">Explore →</span></a>
+        <a class="card card-blue" href="/experiments"><span class="number">03</span><h3>Interface physics</h3><p>Tilt, drift, impact, and wave propagation studies.</p><span class="card-link">Explore →</span></a>
+        <a class="card" href="/experiments"><span class="number">04</span><h3>Practical interfaces</h3><p>Applying expressive systems without changing product semantics.</p><span class="card-link">Explore →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="shell panel media-banner">
+      <div class="media-banner-content">
+        <div class="eyebrow">AIBolt Labs media</div>
+        <h2 class="section-title">Engineering notes and demonstrations, built in the open.</h2>
+        <p class="section-copy">Read the design reasoning, inspect the source, and follow upcoming video walkthroughs from the lab.</p>
+        <div class="hero-actions"><a class="button" href="/blog">Read the journal</a><a class="button button-quiet" href="/videos">Visit the channel</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell grid-2">
+      <div class="panel panel-body">
+        <div class="eyebrow">Latest articles</div>
+        <div class="list-row"><time>Jul 18</time><div><h3><a href="/blog/introducing-dynt">Introducing DYNT</a></h3><p>A framework-neutral system for Formation and Kinetic response.</p></div><span>→</span></div>
+        <div class="list-row"><time>Jul 18</time><div><h3><a href="/blog/interfaces-that-construct-themselves">Interfaces that construct themselves</a></h3><p>Viewport-led construction, profiles, and reversible geometry.</p></div><span>→</span></div>
+        <div class="list-row"><time>Jul 18</time><div><h3><a href="/blog/geometry-that-responds">Geometry that responds</a></h3><p>From contact location to turbulent cell waves.</p></div><span>→</span></div>
+      </div>
+      <div class="panel panel-body">
+        <div class="eyebrow eyebrow-blue">Video channel</div>
+        <h2 class="section-title">AIBolt Labs on YouTube.</h2>
+        <p class="section-copy">The channel is live. The first release series will cover DYNT, Formation profiles, Kinetic geometry, and real integration workflows.</p>
+        <a class="button button-outline" href="https://www.youtube.com/@AiBoltLabs">Open YouTube channel ↗</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

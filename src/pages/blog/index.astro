@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+---
+
+<BaseLayout title="Blog — AIBolt Labs" description="Engineering notes on interface systems, open-source tools, geometry, motion, and practical software experiments.">
+  <section class="page-hero"><div class="shell"><div class="eyebrow">AIBolt Labs journal</div><h1 class="page-title">Engineering notes from inside the work.</h1><p class="lead">Architecture, physical interaction, release decisions, and the evidence behind our open-source projects.</p></div></section>
+  <section class="section"><div class="shell"><div class="grid-3">{posts.map((post) => <article class="card"><span class="number">{post.data.category}</span><h2>{post.data.title}</h2><p>{post.data.description}</p><a class="card-link" href={`/blog/${post.id}`}>Read article →</a></article>)}</div></div></section>
+</BaseLayout>

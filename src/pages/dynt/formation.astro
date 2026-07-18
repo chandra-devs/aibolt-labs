@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DyntLab from '../../components/DyntLab.astro';
+const profiles = [
+  ['line-push', 'Horizontal rails lead before vertical closure.'],
+  ['line-rise', 'Vertical rails lead before horizontal closure.'],
+  ['arc-trace', 'One continuous rounded perimeter draws and erases in opposite registers.'],
+  ['squircle-sweep', 'A superellipse closes with opposing registration marks.'],
+  ['chamfer-fold', 'Clipped corner joints establish the shell before straight rails.'],
+  ['magnetic-segment', 'Distributed half-rails converge on four edge locks.'],
+  ['radial-compass', 'Cardinal spokes locate the centre before enclosure.'],
+  ['aperture-iris', 'Curved sections converge like a controlled aperture.'],
+  ['elastic-membrane', 'Opposing curves tension into a bounded membrane.'],
+];
+---
+
+<BaseLayout title="DYNT Formation — Line-led interface construction" description="Formation gives existing HTML a reversible construction lifecycle with viewport travel, Line Forge rails, and nine geometry profiles.">
+  <section class="page-hero"><div class="shell"><div class="breadcrumb"><a href="/dynt">DYNT</a> / Formation</div><div class="eyebrow">@dynt/formation</div><h1 class="page-title">Construction before appearance.</h1><p class="lead">Formation treats arrival as a visible process: locate the target, construct its boundary, reveal the content, then reverse the entire sequence when it withdraws.</p><div class="hero-actions"><a class="button" href="https://www.npmjs.com/package/@dynt/formation">Install from npm ↗</a><a class="button button-quiet" href="https://github.com/aibolt/dynt/tree/main/packages/formation">Source ↗</a></div></div></section>
+  <section class="section"><div class="shell"><div class="eyebrow">Live Formation lab</div><h2 class="section-title">Nine profiles. One lifecycle contract.</h2><p class="section-copy">Choose a profile, replay the construction, and use Withdraw to observe the reverse choreography.</p><div style="margin-top: 28px"><DyntLab initialMode="formation" viewportFlow /></div></div></section>
+  <section class="section section-divider"><div class="shell"><div class="eyebrow">Profile registry</div><h2 class="section-title">Geometry changes. Integration does not.</h2><div class="grid-3">{profiles.map(([name, description], index) => <article class="card"><span class="number">{String(index + 1).padStart(2, '0')}</span><h3>{name}</h3><p>{description}</p></article>)}</div></div></section>
+  <section class="section-tight"><div class="shell panel panel-body grid-2"><div><div class="eyebrow">Lifecycle</div><h2 class="section-title">Reversible state, not a one-way entrance.</h2><p class="section-copy">The engine moves through locating, constructing, enclosed, revealing, and formed phases. Withdrawal and deconstruction reverse those stages deterministically.</p></div><pre class="code-block"><code>const formation = createFormation({`{
+  root: document,
+  selector: 'main section',
+  profile: 'line-push',
+  observe: true,
+  viewportFlow: true
+}`});
+
+formation.withdraw();
+formation.form();</code></pre></div></section>
+</BaseLayout>
